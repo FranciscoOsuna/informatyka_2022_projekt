@@ -1,17 +1,46 @@
-/*
-Temat projektu: 1. Obiekt sterowany przez u¿ytkownika unika kontaktu z innymi obiektami
-pojawiaj¹cymi siê losowo w scenerii gry. Przyk³ad scenerii: Space Invaders
+ï»¿/*
+Temat projektu: 1. Obiekt sterowany przez uÅ¼ytkownika unika kontaktu z innymi obiektami
+pojawiajÄ…cymi siÄ™ losowo w scenerii gry. PrzykÅ‚ad scenerii: Space Invaders
 
-zakres indywidualny: Gra inspirowana minigierk¹ tanks gry wii play (2006) na nintendo wii.
-Gracz gra jako czo³g poruszaj¹cy siê po planszy omijaj¹c przeszkody oraz pociski, przy
-czym strzelaj¹c w wrogie czo³gi.
+zakres indywidualny: Gra inspirowana minigierkÄ… tanks gry wii play (2006) na nintendo wii.
+Gracz gra jako czoÅ‚g poruszajÄ…cy siÄ™ po planszy omijajÄ…c przeszkody oraz pociski, przy
+czym strzelajÄ…c w wrogie czoÅ‚gi.
 */
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+
+
+class Titles
+{
+	public:
+		int i = 0;
+		const char* titles[10] = { 
+			"   -TANKS-", "   -TANKS-", "   -TANKS-", "   -TANKS-", "   -TANKS-",
+			"   --ANKS-", "   -T-NKS-", "   -TA-KS-", "   -TAN-S-", "   -TANK--"};
+		std::string currentTitle = titles[0];
+
+		std::string nextTitle()
+		{
+			if (i >= 10)
+			{
+				i = 0;
+			}
+			currentTitle = titles[i];
+			i++;
+			return currentTitle;
+		}
+
+
+};
+
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+	Titles title;
+	sf::Clock clock;
+	sf::Time elapsed;
+
+	sf::RenderWindow window(sf::VideoMode(1600, 800), "[*]");
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
 	while (window.isOpen())
@@ -32,6 +61,13 @@ int main()
 		window.clear();
 		window.draw(shape);
 		window.display();
+
+		elapsed = clock.getElapsedTime();
+		if (elapsed.asMilliseconds() > 300)
+		{
+			window.setTitle(title.nextTitle());
+			clock.restart();
+		}
 	}
 	return 0;
 }
