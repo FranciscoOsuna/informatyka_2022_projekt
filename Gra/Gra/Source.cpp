@@ -11,11 +11,11 @@ czym strzelając w wrogie czołgi.
 #include <iostream>
 
 
-class Titles
+class Titles //manages title animations
 {
 	public:
 		int i = 0;
-		const char* titles[10] = { 
+		const char* titles[10] = {
 			"   -TANKS-", "   -TANKS-", "   -TANKS-", "   -TANKS-", "   -TANKS-",
 			"   --ANKS-", "   -T-NKS-", "   -TA-KS-", "   -TAN-S-", "   -TANK--"};
 		std::string currentTitle = titles[0];
@@ -31,22 +31,32 @@ class Titles
 			return currentTitle;
 		}
 
-
+		bool titleAnim(sf::RenderWindow &window, sf::Clock timer)
+		{
+			sf::Time elapsedBetweenTitles = timer.getElapsedTime();
+			if (elapsedBetweenTitles.asMilliseconds() > 300)
+			{
+				window.setTitle(nextTitle());
+				return 1;
+			}
+			return 0;
+		}
 };
 
 int main()
 {
+	
 	Titles title;
-	sf::Clock clock;
-	sf::Time elapsed;
+	sf::Clock titleTimer;
 
 	sf::RenderWindow window(sf::VideoMode(1600, 800), "[*]");
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
-	while (window.isOpen())
+
+	while (window.isOpen()) //Game Loop
 	{
 		sf::Event event;
-		while (window.pollEvent(event))
+		while (window.pollEvent(event)) //Event Loop
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
@@ -61,13 +71,7 @@ int main()
 		window.clear();
 		window.draw(shape);
 		window.display();
-
-		elapsed = clock.getElapsedTime();
-		if (elapsed.asMilliseconds() > 300)
-		{
-			window.setTitle(title.nextTitle());
-			clock.restart();
-		}
+		if(title.titleAnim(window, titleTimer)) titleTimer.restart();
 	}
 	return 0;
 }
