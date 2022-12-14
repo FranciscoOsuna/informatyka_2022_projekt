@@ -1,2 +1,14 @@
 ﻿  Source.cpp
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Source.cpp(80,71): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Source.cpp(80,39): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Source.cpp(114,29): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Source.cpp(119,28): warning C4305: 'argument': truncation from 'double' to 'float'
   Gra.vcxproj -> C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\x64\Debug\Gra.exe

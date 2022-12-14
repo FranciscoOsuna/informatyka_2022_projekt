@@ -9,6 +9,8 @@ czym strzelając w wrogie czołgi.
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cmath>
+
 
 
 class Titles //manages title animations
@@ -43,15 +45,57 @@ class Titles //manages title animations
 		}
 };
 
+class Tanks {
+public:
+	sf::Vector2f Size;
+	sf::Vector2f Position;
+	sf::Color Color;
+	float Speed;
+	float Acceleration;
+	float Orientation;
+
+	Tanks(sf::Vector2f position, float speed = 0, float accel = 0, float orient = -90,
+		sf::Vector2f size = sf::Vector2f(50,30), sf::Color color = sf::Color::Cyan) 
+	{
+		Position = position;
+		Speed = speed;
+		Acceleration = accel;
+		Orientation = orient;
+		Size = size;
+		Color = color;
+	}
+};
+
+void updateTank(sf::RectangleShape &object, Tanks source)
+{
+	object.setSize(source.Size);
+	object.setFillColor(source.Color);
+	object.setPosition(source.Position);
+	object.setRotation(source.Orientation);
+	object.setOrigin(source.Size.x / 2, source.Size.y / 2);
+}
+
+sf::Vector2f moveFromRotation(float rotation) //for movement according to faced direction
+{
+	sf::Vector2f out = sf::Vector2f (0.01*cos(rotation*3.14159/180), 0.01*sin(rotation * 3.14159 / 180));
+	return out;
+}
+
+
+
 int main()
 {
 	
 	Titles title;
 	sf::Clock titleTimer;
 
-	sf::RenderWindow window(sf::VideoMode(1600, 800), "[*]");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(1600, 800), "[*]", sf::Style::Close); //create window
+
+
+	Tanks player(sf::Vector2f(200, 200));
+	sf::RectangleShape playersTank(player.Size);
+	updateTank(playersTank, player);
+
 
 	while (window.isOpen()) //Game Loop
 	{
@@ -60,17 +104,38 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-			if (event.type == sf::Event::KeyPressed)
-				printf("Button pressed\n");
-			if (event.type == sf::Event::Resized)
+		}
+
+
+		//player movement controls
+		{ 
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
 			{
-				std::cout << "new width: " << event.size.width << std::endl;
-				std::cout << "new height: " << event.size.height << std::endl;
+				playersTank.rotate(-0.01);
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+			{
+				playersTank.rotate(0.01);
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+			{
+				playersTank.move(moveFromRotation(playersTank.getRotation()));
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+			{
+				playersTank.move(-moveFromRotation(playersTank.getRotation()));
 			}
 		}
+
 		window.clear();
-		window.draw(shape);
+
+		window.draw(playersTank);
+
 		window.display();
+
 		if(title.titleAnim(window, titleTimer)) titleTimer.restart();
 	}
 	return 0;
