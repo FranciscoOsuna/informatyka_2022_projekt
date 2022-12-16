@@ -1,18 +1,15 @@
 ﻿  Source.cpp
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(77,51): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(58,8): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(82,51): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(98,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(99,62): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(99,40): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(108,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(114,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(178,1): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(183,1): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(204,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(209,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Source.cpp(43,85): warning C4305: 'argument': truncation from 'double' to 'float'
   Gra.vcxproj -> C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\x64\Debug\Gra.exe
