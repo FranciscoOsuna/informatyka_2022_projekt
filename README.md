@@ -7,3 +7,8 @@ pojawiającymi się losowo w scenerii gry. Przykład scenerii: Space Invaders
 zakres indywidualny: Gra inspirowana minigierką tanks gry wii play (2006) na nintendo wii.
 Gracz gra jako czołg poruszający się po planszy omijając przeszkody oraz pociski, przy
 czym strzelając w wrogie czołgi.
+
+
+
+Background courtesey of Deepnight Games RPG map editor 2
+https://deepnight.net/tools/rpg-map/

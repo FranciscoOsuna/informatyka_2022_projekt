@@ -211,3 +211,56 @@ public:
 	}
 
 };
+
+class Background
+{
+public:
+	Background()
+	{
+		backGround.setSize(sf::Vector2f(1600, 800));
+		backGroundTexture.loadFromFile("backGround.png");
+		backGround.setTexture(&backGroundTexture);
+	}
+	void draw(sf::RenderWindow& window)
+	{
+		window.draw(backGround);
+	}
+
+private:
+	sf::RectangleShape backGround;
+	sf::Texture backGroundTexture;
+};
+
+class Wall
+{
+public:
+	Wall(sf::Vector2f size, sf::Vector2f position, float rotation = 0) {
+
+		wall.setPosition(position.x+2,position.y+1);
+		wall.setTextureRect(sf::IntRect(0, 0, size.x-4, size.y-2));
+		wall.setTexture(wallTexture);
+		wall.setRotation(rotation);
+
+		wallTexture.loadFromFile("wallTexture.png");
+		wallTexture.setRepeated(true);
+
+		wallOutline.setPosition(position);
+		wallOutline.setSize(size);
+		wallOutline.setRotation(rotation);
+		wallOutline.setFillColor(sf::Color::Black);
+		
+		
+	}
+
+	void draw(sf::RenderWindow& window)
+	{
+		window.draw(wallOutline);
+		window.draw(wall);
+	}
+
+private:
+	sf::Texture wallTexture;
+	sf::Sprite wall;
+	sf::RectangleShape wallOutline;
+
+};

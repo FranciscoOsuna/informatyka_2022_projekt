@@ -14,11 +14,19 @@ czym strzelając w wrogie czołgi.
 
 int main()
 {
+	bool isPaused = false;
 
 	Titles title;
 
 	//create window
-	sf::RenderWindow window(sf::VideoMode(1600, 800), "[*]", sf::Style::Close);
+	sf::RenderWindow window 
+	(
+		sf::VideoMode(1600, 800), "[*]",
+		sf::Style::Close, sf::ContextSettings(24, 0, 8)
+	);
+
+	// Create the background
+	Background backGround;
 
 	// Set the frame rate to 60 fps
 	window.setFramerateLimit(60);
@@ -33,27 +41,18 @@ int main()
 	// Create the player tank
 	Player player(sf::Vector2f(400, 400));
 
-	// Create the enemy tank
-
-	Enemy enemyList[16] =
+	// Create the enemy tanks
+	Enemy enemyList[5] =
 	{
 		Enemy(sf::Vector2f(200, 400), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
 		Enemy(sf::Vector2f(400, 200), 120, 0.5, sf::Color::Red, sf::Color(245, 0, 126)),
 		Enemy(sf::Vector2f(600, 600), 180, 2, sf::Color::Green, sf::Color(245, 51, 0)),
 		Enemy(sf::Vector2f(800, 400), 270, 0.8, sf::Color::Yellow, sf::Color(245, 51, 126)),
-		Enemy(sf::Vector2f(1000, 100), 180, 1.5, sf::Color::Red, sf::Color(50, 51, 120)),
-		Enemy(sf::Vector2f(50, 400), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
-		Enemy(sf::Vector2f(200, 450), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
-		Enemy(sf::Vector2f(200, 460), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
-		Enemy(sf::Vector2f(200, 470), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
-		Enemy(sf::Vector2f(200, 480), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
-		Enemy(sf::Vector2f(200, 490), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
-		Enemy(sf::Vector2f(200, 500), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
-		Enemy(sf::Vector2f(200, 510), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
-		Enemy(sf::Vector2f(200, 520), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
-		Enemy(sf::Vector2f(200, 530), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
-		Enemy(sf::Vector2f(1400, 400), 0, 9, sf::Color::Red, sf::Color(245, 0, 126)),
+		Enemy(sf::Vector2f(1400, 400), 0, 5, sf::Color::Red, sf::Color(245, 0, 126)),
 	};
+
+	//Create walls
+	Wall wall1(sf::Vector2f(400, 45), sf::Vector2f(40, 500), 45);
 	
 	while (window.isOpen()) //Game Loop
 	{
@@ -62,26 +61,44 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F1)
+				isPaused = !isPaused;
 		}
 
-		// Get the elapsed time since the last frame
-		elapsedTime = clock.restart();
-
-		window.clear();
-
-		for (int i = 0; i < 16; i++)
+		if (!isPaused)
 		{
-			enemyList[i].fixTurretOn(player);
-			enemyList[i].draw(window);
+
+			// Get the elapsed time since the last frame
+			elapsedTime = clock.restart();
+
+			window.clear();
+
+			backGround.draw(window);
+
+			for (int i = 0; i < 5; i++)
+			{
+				enemyList[i].fixTurretOn(player);
+				enemyList[i].draw(window);
+			}
+
+
+			player.manageMovement(elapsedTime);
+			player.draw(window);
+			wall1.draw(window);
+
+			window.display();
+
+			title.titleAnim(window);
+
+		}
+		else 
+		{
+			window.clear(sf::Color::Black);
+			clock.restart();
+
 		}
 		
-
-		player.manageMovement(elapsedTime);
-		player.draw(window);
-
-		window.display();
-
-		title.titleAnim(window);
 	}
 
 	return 0;

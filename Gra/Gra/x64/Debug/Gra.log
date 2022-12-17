@@ -11,5 +11,23 @@ C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(178,1): warning
 C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(183,1): warning C4305: '=': truncation from 'double' to 'float'
 C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(204,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(209,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Source.cpp(43,85): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(240,57): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(240,47): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Source.cpp(50,85): warning C4305: 'argument': truncation from 'double' to 'float'
   Gra.vcxproj -> C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\x64\Debug\Gra.exe
