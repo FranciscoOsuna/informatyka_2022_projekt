@@ -25,14 +25,11 @@ int main()
 		sf::Style::Close, sf::ContextSettings(24, 0, 8)
 	);
 
-	// Create the background
-	Background backGround;
+	// Initiate background
+	Background background;
 
-	// Set the frame rate to 60 fps
-	window.setFramerateLimit(60);
-
-	// Turn off repeat keypress events on hold
-	window.setKeyRepeatEnabled(false);
+	// Manages Icon, Framerate, Keypress event settings
+	SetUp setUp(window);
 
 	// Get the current time
 	sf::Clock clock;
@@ -52,7 +49,7 @@ int main()
 	};
 
 	//Create walls
-	Wall wall1(sf::Vector2f(400, 45), sf::Vector2f(40, 500), 45);
+	Wall wall1(sf::Vector2f(400, 90), sf::Vector2f(40, 500), 45);
 	
 	while (window.isOpen()) //Game Loop
 	{
@@ -74,7 +71,7 @@ int main()
 
 			window.clear();
 
-			backGround.draw(window);
+			background.draw(window);
 
 			for (int i = 0; i < 5; i++)
 			{

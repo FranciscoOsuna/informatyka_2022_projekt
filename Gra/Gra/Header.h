@@ -51,6 +51,30 @@ private:
 	sf::Clock titleTimer;
 };
 
+class SetUp //performs Start Up functions
+{
+public:
+	SetUp(sf::RenderWindow& window)
+	{
+		// Load the icon from a file
+		icon.loadFromFile("Icon.png");
+
+		// Set the window icon
+		window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
+		// Set the frame rate to 60 fps
+		window.setFramerateLimit(60);
+
+		// Turn off repeat keypress events on hold
+		window.setKeyRepeatEnabled(false);
+
+		
+	}
+
+private:
+	sf::Image icon;
+};
+
 
 class Tanks
 {
