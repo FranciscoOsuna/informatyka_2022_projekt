@@ -15,6 +15,7 @@ czym strzelając w wrogie czołgi.
 int main()
 {
 	bool isPaused = false;
+	bool isFocused = true;
 
 	Titles title;
 
@@ -25,10 +26,17 @@ int main()
 		sf::Style::Close, sf::ContextSettings(24, 0, 8)
 	);
 
+	// Class initiations
+	// Initiate pausebox;
+	Pause pause;
+
 	// Initiate background
 	Background background;
 
-	// Manages Icon, Framerate, Keypress event settings
+	// Initiate cursor
+	Cursor cursor;
+
+	// Manages Icon, Framerate, Keypress event settings, hides cursor
 	SetUp setUp(window);
 
 	// Get the current time
@@ -51,6 +59,10 @@ int main()
 	//Create walls
 	Wall wall1(sf::Vector2f(400, 90), sf::Vector2f(40, 500), 45);
 	
+	
+
+	
+	
 	while (window.isOpen()) //Game Loop
 	{
 		sf::Event event;
@@ -61,9 +73,15 @@ int main()
 
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F1)
 				isPaused = !isPaused;
+
+			if (event.type == sf::Event::LostFocus)
+				isFocused = false;
+
+			if (event.type == sf::Event::GainedFocus)
+				isFocused = true;
 		}
 
-		if (!isPaused)
+		if (!isPaused && isFocused)
 		{
 
 			// Get the elapsed time since the last frame
@@ -84,16 +102,23 @@ int main()
 			player.draw(window);
 			wall1.draw(window);
 
+			cursor.draw(window);
+
 			window.display();
 
 			title.titleAnim(window);
 
 		}
-		else 
+		else //do when paused
 		{
 			window.clear(sf::Color::Black);
-			clock.restart();
+			background.draw(window);
 
+			pause.draw(window);
+			
+			clock.restart();
+			cursor.draw(window);
+			window.display();
 		}
 		
 	}

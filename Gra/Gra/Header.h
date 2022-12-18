@@ -68,6 +68,9 @@ public:
 		// Turn off repeat keypress events on hold
 		window.setKeyRepeatEnabled(false);
 
+		// Hide mouse cursor
+		window.setMouseCursorVisible(false);
+
 		
 	}
 
@@ -225,12 +228,12 @@ public:
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			bodyRect.rotate(-speed * deltaTime.asMilliseconds()*0.6);
+			bodyRect.rotate(-speed * deltaTime.asMilliseconds()*1.2);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			bodyRect.rotate(speed * deltaTime.asMilliseconds() * 0.6);
+			bodyRect.rotate(speed * deltaTime.asMilliseconds() * 1.2);
 		}
 	}
 
@@ -258,7 +261,8 @@ private:
 class Wall
 {
 public:
-	Wall(sf::Vector2f size, sf::Vector2f position, float rotation = 0) {
+	Wall(sf::Vector2f size, sf::Vector2f position, float rotation = 0)
+	{
 
 		wall.setPosition(position.x+2,position.y+1);
 		wall.setTextureRect(sf::IntRect(0, 0, size.x-4, size.y-2));
@@ -287,4 +291,45 @@ private:
 	sf::Sprite wall;
 	sf::RectangleShape wallOutline;
 
+};
+
+class Cursor
+{
+public:
+	
+	Cursor()
+	{
+		cursorTexture.loadFromFile("cursor.png");
+		cursorSprite.setOrigin(13,13);
+		cursorSprite.setTexture(cursorTexture);
+	}
+
+	void draw(sf::RenderWindow& window)
+	{
+		cursorSprite.setPosition(sf::Vector2f(sf::Mouse::getPosition(window)));
+		window.draw(cursorSprite);
+	}
+private:
+	sf::Texture cursorTexture;
+	sf::Sprite cursorSprite;
+};
+
+class Pause
+{
+public:
+	Pause()
+	{
+		pauseTexture.loadFromFile("pauseMessage.png");
+		pauseBox.setOrigin(sf::Vector2f(pauseTexture.getSize()) / 2.0f);
+		pauseBox.setPosition(800, 400);
+		pauseBox.setTexture(pauseTexture);
+	}
+
+	void draw(sf::RenderWindow& window)
+	{
+		window.draw(pauseBox);
+	}
+private:
+	sf::Texture pauseTexture;
+	sf::Sprite pauseBox;
 };
