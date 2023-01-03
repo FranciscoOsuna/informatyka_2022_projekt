@@ -11,6 +11,10 @@ czym strzelając w wrogie czołgi.
 #include <iostream>
 #include <cmath>
 #include "Header.h"
+#include "Tanks.h"
+#include "Walls.h"
+#include "LevelManager.h"
+
 
 int main()
 {
@@ -43,24 +47,17 @@ int main()
 	sf::Clock clock;
 	sf::Time elapsedTime;
 
+
 	// Create the player tank
 	Player player(sf::Vector2f(400, 400));
 
-	// Create the enemy tanks
-	Enemy enemyList[5] =
-	{
-		Enemy(sf::Vector2f(200, 400), 90, 1, sf::Color::Blue, sf::Color(0, 51, 126)),
-		Enemy(sf::Vector2f(400, 200), 120, 0.5, sf::Color::Red, sf::Color(245, 0, 126)),
-		Enemy(sf::Vector2f(600, 600), 180, 2, sf::Color::Green, sf::Color(245, 51, 0)),
-		Enemy(sf::Vector2f(800, 400), 270, 0.8, sf::Color::Yellow, sf::Color(245, 51, 126)),
-		Enemy(sf::Vector2f(1400, 400), 0, 5, sf::Color::Red, sf::Color(245, 0, 126)),
-	};
+	Wall wall1(sf::Vector2f(200, 40), sf::Vector2f(800, 400), 0);
+	Wall wall2(sf::Vector2f(200, 40), sf::Vector2f(800, 400), 1);
 
-	//Create walls
-	Wall wall1(sf::Vector2f(400, 90), sf::Vector2f(40, 500), 45);
-	
-	
+	// Create enemies and walls from file
+	readLevelFile("Levels\\Level1.txt");
 
+	
 	
 	
 	while (window.isOpen()) //Game Loop
@@ -91,16 +88,22 @@ int main()
 
 			background.draw(window);
 
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < enemies.size(); i++)
 			{
-				enemyList[i].fixTurretOn(player);
-				enemyList[i].draw(window);
+				enemies[i].fixTurretOn(player);
+				enemies[i].draw(window);
 			}
 
+			for (int i = 0; i < walls.size(); i++)
+			{
+				walls[i].draw(window);
+			}
+
+			wall1.draw(window);
+			wall2.draw(window);
 
 			player.manageMovement(elapsedTime);
 			player.draw(window);
-			wall1.draw(window);
 
 			cursor.draw(window);
 

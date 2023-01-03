@@ -1,0 +1,10 @@
+# Wall takes arguments as follows: [1]width [2]height [3]xPosition [4]yPosition [5]isVertical(0/1)
+# Enemy takes arguments as follows: [1]xPosition [2]yPosition [3]orientation(degrees) [4][5][6]color1(R G B) [7][8][9]color2(R G B)
+
+Wall 90 40 400 500 0
+Wall 800 500 10 400 1
+
+
+Enemy 200 400 90 1 0 0 255 0 51 126
+Enemy 1400 400 0 5 0 255 0 245 0 126
+Enemy 800 400 45 0.75 0 255 90 0 0 126

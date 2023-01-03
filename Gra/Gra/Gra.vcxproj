@@ -136,6 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />
+    <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="Walls.h" />
+    <ClInclude Include="Tanks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
