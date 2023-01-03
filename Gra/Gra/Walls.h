@@ -20,12 +20,15 @@ public:
 		{
 			rotation = 0;
 		}
-		Wall::wallTexture.loadFromFile("Assets\\wallTexture.png");
-		Wall::wallTexture.setRepeated(true);
+		wallTexture = std::make_shared<sf::Texture>();
+		wallTexture->loadFromFile("Assets\\wallTexture.png");
+		wallTexture->setRepeated(true);
 
 		wall.setPosition(position.x + 2, position.y + 1);
 		wall.setTextureRect(sf::IntRect(0, 0, size.x - 4, size.y - 2));
-		wall.setTexture(wallTexture);
+		
+		wall.setTexture(*wallTexture);
+
 		wall.setRotation(rotation);
 
 		wallOutline.setPosition(position);
@@ -41,7 +44,7 @@ public:
 	}
 
 private:
-	sf::Texture wallTexture;
+	std::shared_ptr<sf::Texture> wallTexture;
 	float rotation;
 	sf::Sprite wall;
 	sf::RectangleShape wallOutline;
