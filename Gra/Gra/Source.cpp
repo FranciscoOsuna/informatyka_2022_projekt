@@ -14,7 +14,6 @@ czym strzelając w wrogie czołgi.
 #include "Tanks.h"
 #include "Walls.h"
 #include "LevelManager.h"
-#include "Projectile.h"
 
 
 int main()
@@ -91,6 +90,15 @@ int main()
 			{
 				enemies[i].fixTurretOn(player);
 				enemies[i].draw(window);
+				for (int j = 0; j < enemies[i].projectiles.size(); j++)
+				{
+					enemies[i].projectiles[j].update();
+					enemies[i].projectiles[j].draw(window);
+					if (!enemies[i].projectiles[j].active)
+					{
+						enemies[i].projectiles.erase(enemies[i].projectiles.begin() + j);
+					}
+				}
 			}
 
 			for (int i = 0; i < walls.size(); i++)
@@ -101,6 +109,15 @@ int main()
 
 			player.manageMovement(elapsedTime, wallBounds);
 			player.draw(window);
+			for (int i = 0; i < player.projectiles.size(); i++)
+			{
+				player.projectiles[i].update();
+				player.projectiles[i].draw(window);
+				if (!player.projectiles[i].active)
+				{
+					player.projectiles.erase(player.projectiles.begin() + i);
+				}
+			}
 
 			cursor.draw(window);
 

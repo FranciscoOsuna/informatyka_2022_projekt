@@ -2,7 +2,92 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
-#include "Projectile.h"
+
+class Projectile
+{
+public:
+	sf::Vector2f position;
+	float direction;
+	float speed;
+	sf::FloatRect projectileBounds;
+	bool active;
+
+
+	Projectile(sf::Vector2f pos, float dir, float spe)
+	{
+		active = true;
+		position = pos;
+		direction = dir;
+		speed = spe;
+		bounces = 0;
+
+		timeSinceCreation = sf::Clock();
+		deltaTime = sf::Clock();
+		animationDeltaTime = sf::Clock();
+
+		frame = sf::IntRect(0, 0, 20, 20);
+
+		projectileTexture = std::make_shared<sf::Texture>();
+		projectileTexture->loadFromFile("Assets\\Projectile.png");
+
+		projectile.setTexture(*projectileTexture);
+
+		projectile.setPosition(position);
+		projectile.setRotation(direction);
+		projectile.setTextureRect(frame);
+
+	}
+
+	sf::Vector2f vectorFromRotation(float rotationDegrees)
+	{
+		float rotation = rotationDegrees * 3.14159 / 180 - 1.57079632679;
+		sf::Vector2f out = sf::Vector2f(cos(rotation), sin(rotation));
+		return out;
+	}
+
+	void update()
+	{
+		position += vectorFromRotation(direction) * speed * deltaTime.getElapsedTime().asSeconds();
+		projectile.setPosition(position);
+
+		if (timeSinceCreation.getElapsedTime().asSeconds() > 5 || bounces > 2)
+		{
+			active = false;
+		}
+		if (animationDeltaTime.getElapsedTime().asMilliseconds() > 100)
+		{
+			if (frame.left > 20)
+			{
+				frame.left = 0;
+			}
+			else
+			{
+				frame.left += 20;
+			}
+			projectile.setTextureRect(frame);
+			animationDeltaTime.restart();
+		}
+
+		deltaTime.restart();
+	}
+
+	void draw(sf::RenderWindow& window)
+	{
+		window.draw(projectile);
+	}
+
+private:
+	std::shared_ptr<sf::Texture> projectileTexture;
+	sf::Sprite projectile;
+
+	int bounces;
+
+	sf::Clock timeSinceCreation;
+	sf::Clock animationDeltaTime;
+	sf::Clock deltaTime;
+
+	sf::IntRect frame;
+};
 
 class Tanks
 {
@@ -118,6 +203,7 @@ public:
 class Player : public Tanks
 {
 public:
+	sf::Clock timeSinceShot;
 	sf::Vector2f originalPosition;
 	float sizeMultiplier;
 	sf::CircleShape playerCircle;
@@ -127,6 +213,7 @@ public:
 		sf::Color color1 = sf::Color::Cyan, sf::Color color2 = sf::Color::Blue)
 		: Tanks(position, orient, sizeMult, color1, color2)
 	{
+		timeSinceShot = sf::Clock();
 		sizeMultiplier = sizeMult;
 		playerCircle.setRadius(16 * sizeMultiplier);
 	}
@@ -214,9 +301,11 @@ public:
 			bodyRect.rotate(speed * deltaTime.asMilliseconds() * 1.2);
 		}
 		
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) 
+			&& timeSinceShot.getElapsedTime().asSeconds() > 1)
 		{
 			shoot(sizeMultiplier);
+			timeSinceShot.restart();
 		}
 
 	}
