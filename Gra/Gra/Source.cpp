@@ -49,15 +49,13 @@ int main()
 
 
 	// Create the player tank
-	Player player(sf::Vector2f(400, 400));
-
-	Wall wall1(sf::Vector2f(200, 40), sf::Vector2f(800, 400), 0);
-	Wall wall2(sf::Vector2f(200, 40), sf::Vector2f(800, 400), 1);
+	Player player(sf::Vector2f(200, 400));
 
 	// Create enemies and walls from file
 	readLevelFile("Levels\\Level1.txt");
 
-	
+	// Create a vector of wall bounds
+	std::vector<sf::FloatRect> wallBounds = getWallBounds(walls);
 	
 	
 	while (window.isOpen()) //Game Loop
@@ -99,10 +97,8 @@ int main()
 				walls[i].draw(window);
 			}
 
-			wall1.draw(window);
-			wall2.draw(window);
 
-			player.manageMovement(elapsedTime);
+			player.manageMovement(elapsedTime, wallBounds);
 			player.draw(window);
 
 			cursor.draw(window);

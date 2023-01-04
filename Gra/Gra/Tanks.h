@@ -103,9 +103,18 @@ public:
 class Player : public Tanks
 {
 public:
+	sf::Vector2f originalPosition;
+	float sizeMultiplier;
+	sf::CircleShape playerCircle;
+	sf::FloatRect playerBounds;
+
 	Player(sf::Vector2f position, float orient = 0, float sizeMult = 1,
 		sf::Color color1 = sf::Color::Cyan, sf::Color color2 = sf::Color::Blue)
-		: Tanks(position, orient, sizeMult, color1, color2) {}
+		: Tanks(position, orient, sizeMult, color1, color2)
+	{
+		sizeMultiplier = sizeMult;
+		playerCircle.setRadius(16 * sizeMultiplier);
+	}
 
 	void turretControl(sf::RenderWindow& window)
 	{
@@ -121,9 +130,25 @@ public:
 		Tanks::draw(window);
 	}
 
-
-	void manageMovement(sf::Time deltaTime)
+	bool detectCollision(std::vector<sf::FloatRect>& Bounds)
 	{
+		playerCircle.setPosition(bodyRect.getPosition());
+		playerBounds = playerCircle.getGlobalBounds();
+
+		for (int i = 0; i < Bounds.size(); i++)
+		{
+			if (playerBounds.intersects(Bounds[i]))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	void manageMovement(sf::Time deltaTime, std::vector<sf::FloatRect>& wallBounds)
+	{
+		originalPosition = bodyRect.getPosition();
+		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
 			speed = 0.1;
@@ -140,6 +165,13 @@ public:
 			gunCircle.move(speed * deltaTime.asMilliseconds() * movementVector);
 			bodyRect.move(speed * deltaTime.asMilliseconds() * movementVector);
 			gunRect.move(speed * deltaTime.asMilliseconds() * movementVector);
+
+			if (detectCollision(wallBounds))
+			{
+				bodyRect.setPosition(originalPosition);
+				gunCircle.setPosition(originalPosition);
+				gunRect.setPosition(originalPosition);
+			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
@@ -148,6 +180,13 @@ public:
 			gunCircle.move(speed * deltaTime.asMilliseconds() * movementVector);
 			bodyRect.move(speed * deltaTime.asMilliseconds() * movementVector);
 			gunRect.move(speed * deltaTime.asMilliseconds() * movementVector);
+
+			if (detectCollision(wallBounds))
+			{
+				bodyRect.setPosition(originalPosition);
+				gunCircle.setPosition(originalPosition);
+				gunRect.setPosition(originalPosition);
+			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -159,6 +198,8 @@ public:
 		{
 			bodyRect.rotate(speed * deltaTime.asMilliseconds() * 1.2);
 		}
+		
+
 	}
 
 };
