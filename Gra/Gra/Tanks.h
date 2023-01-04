@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
+#include "raycasting.h"
 
 class Projectile
 {
@@ -11,6 +12,7 @@ public:
 	float speed;
 	sf::FloatRect projectileBounds;
 	bool active;
+	sf::Sprite projectile;
 
 
 	Projectile(sf::Vector2f pos, float dir, float spe)
@@ -47,7 +49,7 @@ public:
 
 	void update()
 	{
-		position += vectorFromRotation(direction) * speed * deltaTime.getElapsedTime().asSeconds();
+		position += vectorFromRotation(direction) * speed * 200.f * deltaTime.getElapsedTime().asSeconds();
 		projectile.setPosition(position);
 
 		if (timeSinceCreation.getElapsedTime().asSeconds() > 5 || bounces > 2)
@@ -78,7 +80,6 @@ public:
 
 private:
 	std::shared_ptr<sf::Texture> projectileTexture;
-	sf::Sprite projectile;
 
 	int bounces;
 
@@ -97,6 +98,7 @@ public:
 	sf::RectangleShape bodyRect;
 	sf::RectangleShape gunRect;
 	sf::CircleShape gunCircle;
+	float sizeMultiplier;
 
 	std::vector<Projectile> projectiles;
 
@@ -105,6 +107,7 @@ public:
 		sf::Color color1 = sf::Color::Cyan,
 		sf::Color color2 = sf::Color::Blue)
 	{
+		sizeMultiplier = sizeMult;
 		sf::Vector2f size = sizeMult * sf::Vector2f(30, 50);
 
 		// Set the parameters of the body
@@ -141,13 +144,6 @@ public:
 		return bodyRect.getPosition();
 	}
 
-
-	float rotationFromVectorDifference(sf::Vector2f v1, sf::Vector2f v2)
-	{
-		float angle = (atan2((v2.y - v1.y), (v2.x - v1.x)) * 180 / 3.14159) - 90;
-		return angle;
-	}
-
 	sf::Vector2f vectorFromRotation(sf::RectangleShape& body) // Returns a vector according to body orientation
 	{
 		float rotation = body.getRotation() * 3.14159 / 180 - 1.57079632679;
@@ -165,13 +161,16 @@ public:
 
 	void shoot(float speed)
 	{
-		float gunRotationRadians = gunRect.getRotation() * 3.14159 / 180;
+		float gunRotationRadians = gunRect.getRotation() * 3.14159 / 180 +(3.14159/2);
 		sf::Vector2f endOfGun =
 			giveBodyPosition() +
+			sf::Vector2f(cos(gunRotationRadians + 1.571), sin(gunRotationRadians + 1.571)) 
+			* float(- 10.5) *sizeMultiplier +
 			sf::Vector2f(cos(gunRotationRadians), sin(gunRotationRadians)) *
-			bodyRect.getSize().x / 5.f;
+			bodyRect.getSize().y * float(1.05);
 
-		Projectile projectile(endOfGun, gunRotationRadians, speed);
+		Projectile projectile(endOfGun, gunRect.getRotation()+180, speed);
+		projectile.projectile.setScale(float(sizeMultiplier), float(sizeMultiplier));
 		projectiles.push_back(projectile);
 	}
 
@@ -182,10 +181,18 @@ public:
 class Enemy : public Tanks
 {
 public:
+	sf::Clock timeSinceShot;
+	float reloadTime;
+	sf::Vector2f enemyPosition;
 
 	Enemy(sf::Vector2f position, float orient = 0, float sizeMult = 1,
 		sf::Color color1 = sf::Color::Cyan, sf::Color color2 = sf::Color::Blue)
-		: Tanks(position, orient, sizeMult, color1, color2) {}
+		: Tanks(position, orient, sizeMult, color1, color2) 
+	{
+		timeSinceShot = sf::Clock();
+		reloadTime = (1.2 * sizeMult);
+		enemyPosition = position;
+	}
 
 	void fixTurretOn(Tanks target)
 	{
@@ -193,9 +200,14 @@ public:
 		gunRect.setRotation(orient);
 	}
 
-	void draw(sf::RenderWindow& window) override
+	void drawAndShoot(sf::RenderWindow& window, bool canShoot)
 	{
 		Tanks::draw(window);
+		if (timeSinceShot.getElapsedTime().asSeconds() > reloadTime && canShoot)
+		{
+			shoot(sizeMultiplier);
+			timeSinceShot.restart();
+		}
 	}
 };
 
@@ -302,7 +314,7 @@ public:
 		}
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) 
-			&& timeSinceShot.getElapsedTime().asSeconds() > 1)
+			&& timeSinceShot.getElapsedTime().asSeconds() > 0.5)
 		{
 			shoot(sizeMultiplier);
 			timeSinceShot.restart();

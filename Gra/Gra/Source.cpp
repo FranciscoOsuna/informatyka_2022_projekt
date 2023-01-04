@@ -47,6 +47,9 @@ int main()
 	sf::Clock clock;
 	sf::Time elapsedTime;
 
+	// Turn devMode off
+	bool devMode = false;
+
 
 	// Create the player tank
 	Player player(sf::Vector2f(200, 400));
@@ -74,6 +77,9 @@ int main()
 
 			if (event.type == sf::Event::GainedFocus)
 				isFocused = true;
+
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F2)
+				devMode = !devMode;
 		}
 
 		if (!isPaused && isFocused)
@@ -88,8 +94,21 @@ int main()
 
 			for (int i = 0; i < enemies.size(); i++)
 			{
+				bool canShoot = 1;
+				for (int j = 0; j < walls.size(); j++)
+				{
+					if (raycast(
+						enemies[i].enemyPosition,
+						player.giveBodyPosition(),
+						walls[j].wallBounds,
+						window,
+					    devMode))
+					{
+						canShoot = 0;
+					}
+				}
 				enemies[i].fixTurretOn(player);
-				enemies[i].draw(window);
+				enemies[i].drawAndShoot(window, canShoot);
 				for (int j = 0; j < enemies[i].projectiles.size(); j++)
 				{
 					enemies[i].projectiles[j].update();

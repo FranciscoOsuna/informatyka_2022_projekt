@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="Header.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="raycasting.h" />
     <ClInclude Include="Walls.h" />
     <ClInclude Include="Tanks.h" />
   </ItemGroup>

@@ -32,5 +32,8 @@
     <ClInclude Include="LevelManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="raycasting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

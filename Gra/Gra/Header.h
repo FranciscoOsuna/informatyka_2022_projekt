@@ -51,6 +51,14 @@ private:
 	sf::Clock titleTimer;
 };
 
+// Very important vector arithmetic
+
+float rotationFromVectorDifference(sf::Vector2f v1, sf::Vector2f v2)
+{
+	float angle = (atan2((v2.y - v1.y), (v2.x - v1.x)) * 180 / 3.14159) - 90;
+	return angle;
+}
+
 
 class SetUp //performs Start Up functions
 {

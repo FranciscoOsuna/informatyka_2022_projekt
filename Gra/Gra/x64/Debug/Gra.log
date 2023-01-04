@@ -1,18 +1,29 @@
 ﻿  Source.cpp
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(43,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(95,8): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(121,51): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Header.h(58,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(45,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(96,8): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(124,51): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(147,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(153,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(168,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(256,1): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(261,1): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(296,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(301,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(149,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(164,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(167,53): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(167,20): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(193,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(268,1): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(273,1): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(308,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(313,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Walls.h(30,53): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
