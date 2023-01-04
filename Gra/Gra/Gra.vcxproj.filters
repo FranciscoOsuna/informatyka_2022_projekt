@@ -32,5 +32,8 @@
     <ClInclude Include="LevelManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
+#include "Projectile.h"
 
 class Tanks
 {
@@ -11,6 +12,8 @@ public:
 	sf::RectangleShape bodyRect;
 	sf::RectangleShape gunRect;
 	sf::CircleShape gunCircle;
+
+	std::vector<Projectile> projectiles;
 
 	Tanks(sf::Vector2f position, float orient = 0,
 		float sizeMult = 1,
@@ -73,6 +76,18 @@ public:
 		window.draw(bodyRect);
 		window.draw(gunRect);
 		window.draw(gunCircle);
+	}
+
+	void shoot(float speed)
+	{
+		float gunRotationRadians = gunRect.getRotation() * 3.14159 / 180;
+		sf::Vector2f endOfGun =
+			giveBodyPosition() +
+			sf::Vector2f(cos(gunRotationRadians), sin(gunRotationRadians)) *
+			bodyRect.getSize().x / 5.f;
+
+		Projectile projectile(endOfGun, gunRotationRadians, speed);
+		projectiles.push_back(projectile);
 	}
 
 
@@ -199,6 +214,10 @@ public:
 			bodyRect.rotate(speed * deltaTime.asMilliseconds() * 1.2);
 		}
 		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			shoot(sizeMultiplier);
+		}
 
 	}
 

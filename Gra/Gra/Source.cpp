@@ -14,6 +14,7 @@ czym strzelając w wrogie czołgi.
 #include "Tanks.h"
 #include "Walls.h"
 #include "LevelManager.h"
+#include "Projectile.h"
 
 
 int main()
