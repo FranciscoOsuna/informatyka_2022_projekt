@@ -1,2 +1,120 @@
 ﻿  Source.cpp
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Source.cpp(10,10): fatal  error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Header.h(58,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(45,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(147,8): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(175,51): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(207,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(222,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(225,53): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(225,20): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(251,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(336,1): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(341,1): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(376,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(381,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Walls.h(31,53): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Walls.h(31,45): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\LevelManager.h(41,43): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\LevelManager.h(41,36): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\LevelManager.h(41,68): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\LevelManager.h(41,65): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\LevelManager.h(57,41): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\LevelManager.h(57,38): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\LevelManager.h(57,61): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\LevelManager.h(57,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(36,53): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(36,43): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(42,44): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(42,38): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(90,81): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(90,64): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+  Generating code
+  1 of 774 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Gra.vcxproj -> C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\x64\Release\Gra.exe

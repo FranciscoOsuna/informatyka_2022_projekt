@@ -195,6 +195,13 @@ public:
 		return bodyRect.getPosition();
 	}
 
+	void changeColors(sf::Color color1, sf::Color color2)
+	{
+		bodyRect.setFillColor(color1);
+		gunRect.setFillColor(color2);
+		gunCircle.setFillColor(color2);
+	}
+
 	sf::Vector2f vectorFromRotation(sf::RectangleShape& body) // Returns a vector according to body orientation
 	{
 		float rotation = body.getRotation() * 3.14159 / 180 - 1.57079632679;

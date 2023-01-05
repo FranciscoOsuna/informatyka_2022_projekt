@@ -14,16 +14,32 @@ czym strzelając w wrogie czołgi.
 #include "Tanks.h"
 #include "Walls.h"
 #include "LevelManager.h"
+#include "Menu.h"
 
 
 int main()
 {
+
+	// Set booleans to initial values
 	bool isPaused = false;
 	bool isFocused = true;
+	bool devMode = false;
+	bool zeroReload = false;
+	bool inMainMenu = true;
 
-	Titles title;
+	// Create player color variables for character creation
+	sf::Color playerColor1 = sf::Color::Cyan;
+	sf::Color playerColor2 = sf::Color::Blue;
+	sf::Color newColor1 = sf::Color::Cyan;
+	sf::Color newColor2 = sf::Color::Blue;
 
-	//create window
+	// Create a sample "player" for character creation
+	Tanks sampleTank(sf::Vector2f(200, 400), 225, 3, playerColor1, playerColor2);
+
+	// Initialise an instance of the Title class
+	Titles title; // This manages the title animations
+
+	// Create window
 	sf::RenderWindow window 
 	(
 		sf::VideoMode(1600, 800), "[*]",
@@ -31,27 +47,20 @@ int main()
 	);
 
 	// Class initiations
-	// Initiate pausebox;
 	Pause pause;
-
-	// Initiate background
 	Background background;
-
-	// Initiate cursor
 	Cursor cursor;
 
+	// Create color grids for character customisation
+	ColorSquareGrid colorSquareGrid1(sf::Vector2f(400, 50));
+	ColorSquareGrid colorSquareGrid2(sf::Vector2f(400, 400));
+
 	// Manages Icon, Framerate, Keypress event settings, hides cursor
-	SetUp setUp(window);
+	SetUpWindow setUp(window);
 
 	// Get the current time
 	sf::Clock clock;
 	sf::Time elapsedTime;
-
-	// Turn devMode off
-	bool devMode = false;
-
-	bool zeroReload = false;
-
 
 	// Create the player tank
 	Player player(sf::Vector2f(200, 400));
@@ -63,30 +72,75 @@ int main()
 	std::vector<sf::FloatRect> wallBounds = getWallBounds(walls);
 	
 	
-	while (window.isOpen()) //Game Loop
+	while (window.isOpen()) // Program Loop
 	{
+		//Event Loop
 		sf::Event event;
-		while (window.pollEvent(event)) //Event Loop
+		while (window.pollEvent(event))
 		{
+			// Close window if closed manually
 			if (event.type == sf::Event::Closed)
 				window.close();
 
+			// Toggle pause
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F1)
 				isPaused = !isPaused;
 
+			// Toggle isFocused depending on window focus
 			if (event.type == sf::Event::LostFocus)
 				isFocused = false;
-
 			if (event.type == sf::Event::GainedFocus)
 				isFocused = true;
 
+			// Toggle developer mode
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F2)
 				devMode = !devMode;
+
+			// Turn off main menu quickly
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F4)
+				inMainMenu = false;
+
+			// Toggle instant reload
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F3)
 				zeroReload = !zeroReload;
+
+			if (inMainMenu && sf::Event::MouseButtonPressed) // Check for button clicks
+			{
+
+			}
 		}
 
-		if (!isPaused && isFocused)
+		// Main menu loop
+		if(inMainMenu) 
+		{
+
+			window.clear(sf::Color(128, 128, 128));
+
+			newColor1 = colorSquareGrid1.manage(window, playerColor1);
+			if (newColor1 != playerColor1)
+			{
+				playerColor1 = newColor1;
+			}
+
+			newColor2 = colorSquareGrid2.manage(window, playerColor2);
+			if (newColor2 != playerColor2)
+			{
+				playerColor2 = newColor2;
+			}
+
+			player.changeColors(playerColor1, playerColor2);
+			sampleTank.changeColors(playerColor1, playerColor2);
+
+
+			sampleTank.draw(window);
+
+			clock.restart();
+			cursor.draw(window);
+			window.display();
+		}
+
+		// Game loop
+		else if (!isPaused && isFocused) 
 		{
 
 			// Get the elapsed time since the last frame
@@ -186,10 +240,10 @@ int main()
 
 			window.display();
 
-			title.titleAnim(window);
-
 		}
-		else //do when paused
+
+		// Pause loop
+		else 
 		{
 			window.clear(sf::Color::Black);
 			background.draw(window);
@@ -200,7 +254,7 @@ int main()
 			cursor.draw(window);
 			window.display();
 		}
-		
+		title.titleAnim(window);
 	}
 
 	return 0;

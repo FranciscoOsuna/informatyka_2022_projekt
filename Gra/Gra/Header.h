@@ -60,10 +60,10 @@ float rotationFromVectorDifference(sf::Vector2f v1, sf::Vector2f v2)
 }
 
 
-class SetUp //performs Start Up functions
+class SetUpWindow //performs Start Up functions on window
 {
 public:
-	SetUp(sf::RenderWindow& window)
+	SetUpWindow(sf::RenderWindow& window)
 	{
 		// Load the icon from a file
 		icon.loadFromFile("Assets\\Icon.png");
@@ -106,7 +106,6 @@ private:
 	sf::RectangleShape backGround;
 	sf::Texture backGroundTexture;
 };
-
 
 
 class Cursor
