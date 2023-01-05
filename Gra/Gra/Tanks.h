@@ -13,6 +13,7 @@ public:
 	sf::FloatRect projectileBounds;
 	bool active;
 	sf::Sprite projectile;
+	int bounces = 0;
 
 
 	Projectile(sf::Vector2f pos, float dir, float spe)
@@ -21,7 +22,6 @@ public:
 		position = pos;
 		direction = dir;
 		speed = spe;
-		bounces = 0;
 
 		timeSinceCreation = sf::Clock();
 		deltaTime = sf::Clock();
@@ -47,12 +47,64 @@ public:
 		return out;
 	}
 
+
+	int collisionTypeDetection(const sf::FloatRect object)
+	{
+		// Get the bounds of the projectile
+		sf::FloatRect projectileBounds = projectile.getGlobalBounds();
+
+		// Check if the projectile intersects the object
+		if (projectileBounds.intersects(object))
+		{
+			// Get the position of the projectile
+			sf::Vector2f projectilePos = projectile.getPosition();
+
+			// Calculate the top and bottom of the object
+			float objectTop = object.top;
+			float objectBottom = object.top + object.height;
+
+			// Check if the projectile is above the top or below the bottom of the object
+			if (projectilePos.y < objectTop || projectilePos.y > objectBottom)
+			{
+				return 2;
+			}
+
+			// Calculate the left and right sides of the object
+			float objectLeft = object.left;
+			float objectRight = object.left + object.width;
+
+			// Check if the projectile is to the left of the left side or to the right of the right side of the object
+			if (projectilePos.x < objectLeft || projectilePos.x > objectRight)
+			{
+				return 1;
+			}
+		}
+
+		// If the projectile is not intersecting the object, return 0
+		return 0;
+	}
+
+
+	void bounce(bool isVerticalCollision)
+	{
+		//bounces += 1;
+		if (isVerticalCollision)
+		{
+			direction = -direction;
+		}
+		else
+		{
+			direction = 180 - direction;
+		}
+	}
+
 	void update()
 	{
 		position += vectorFromRotation(direction) * speed * 200.f * deltaTime.getElapsedTime().asSeconds();
 		projectile.setPosition(position);
+		projectileBounds = projectile.getGlobalBounds();
 
-		if (timeSinceCreation.getElapsedTime().asSeconds() > 5 || bounces > 2)
+		if (timeSinceCreation.getElapsedTime().asSeconds() > 5 || bounces>2)
 		{
 			active = false;
 		}
@@ -81,7 +133,6 @@ public:
 private:
 	std::shared_ptr<sf::Texture> projectileTexture;
 
-	int bounces;
 
 	sf::Clock timeSinceCreation;
 	sf::Clock animationDeltaTime;

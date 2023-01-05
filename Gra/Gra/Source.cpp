@@ -111,6 +111,7 @@ int main()
 				enemies[i].drawAndShoot(window, canShoot);
 				for (int j = 0; j < enemies[i].projectiles.size(); j++)
 				{
+
 					enemies[i].projectiles[j].update();
 					enemies[i].projectiles[j].draw(window);
 					if (!enemies[i].projectiles[j].active)
@@ -118,6 +119,29 @@ int main()
 						enemies[i].projectiles.erase(enemies[i].projectiles.begin() + j);
 					}
 				}
+
+				//TODO add bounce 
+				// i - enemy, j - wall, k - projectile
+				/*for (int k = 0; k < enemies[i].projectiles.size(); k++) 
+				{
+					for (int j = 0; j < walls.size(); j++)
+					{
+						if (i >= enemies[i].projectiles.size())
+						{
+							break;
+						}
+						int colType = enemies[i].projectiles[k].collisionTypeDetection(walls[j].wallBounds);
+						if (colType == 1)
+						{
+							enemies[i].projectiles[k].bounce(true);
+						}
+						else if (colType == 2)
+						{
+							enemies[i].projectiles[k].bounce(false);
+						}
+					}
+				}*/
+				
 			}
 
 			for (int i = 0; i < walls.size(); i++)
@@ -135,6 +159,23 @@ int main()
 				if (!player.projectiles[i].active)
 				{
 					player.projectiles.erase(player.projectiles.begin() + i);
+				}
+
+				for (int j = 0; j < walls.size(); j++)
+				{
+					if (i >= player.projectiles.size())
+					{
+						break;
+					}
+					int colType = player.projectiles[i].collisionTypeDetection(walls[j].wallBounds);
+					if (colType == 1)
+					{
+						player.projectiles[i].bounce(true);
+					}
+					else if (colType == 2)
+					{
+						player.projectiles[i].bounce(false);
+					}
 				}
 			}
 
