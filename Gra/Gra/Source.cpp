@@ -50,6 +50,8 @@ int main()
 	// Turn devMode off
 	bool devMode = false;
 
+	bool zeroReload = false;
+
 
 	// Create the player tank
 	Player player(sf::Vector2f(200, 400));
@@ -80,6 +82,8 @@ int main()
 
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F2)
 				devMode = !devMode;
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F3)
+				zeroReload = !zeroReload;
 		}
 
 		if (!isPaused && isFocused)
@@ -119,10 +123,9 @@ int main()
 						enemies[i].projectiles.erase(enemies[i].projectiles.begin() + j);
 					}
 				}
-
-				//TODO add bounce 
+ 
 				// i - enemy, j - wall, k - projectile
-				/*for (int k = 0; k < enemies[i].projectiles.size(); k++) 
+				for (int k = 0; k < enemies[i].projectiles.size(); k++) 
 				{
 					for (int j = 0; j < walls.size(); j++)
 					{
@@ -140,18 +143,18 @@ int main()
 							enemies[i].projectiles[k].bounce(false);
 						}
 					}
-				}*/
+				}
 				
 			}
 
 			for (int i = 0; i < walls.size(); i++)
 			{
-				walls[i].draw(window);
+				walls[i].draw(window, devMode);
 			}
 
 
-			player.manageMovement(elapsedTime, wallBounds);
-			player.draw(window);
+			player.manageMovement(elapsedTime, wallBounds, zeroReload);
+			player.drawPlayer(window, devMode);
 			for (int i = 0; i < player.projectiles.size(); i++)
 			{
 				player.projectiles[i].update();

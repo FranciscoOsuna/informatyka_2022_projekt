@@ -20,11 +20,11 @@ C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(218,20): warning
               T=float
           ]
 C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(244,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(319,1): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(324,1): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(359,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(364,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Walls.h(30,53): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(329,1): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(334,1): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(369,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Tanks.h(374,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Walls.h(31,53): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=float
@@ -33,7 +33,7 @@ C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Walls.h(30,53): warning 
           [
               T=int
           ]
-C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Walls.h(30,45): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\user0\Desktop\informatyka_2022_projekt\Gra\Gra\Walls.h(31,45): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=float

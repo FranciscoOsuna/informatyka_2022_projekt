@@ -87,7 +87,7 @@ public:
 
 	void bounce(bool isVerticalCollision)
 	{
-		//bounces += 1;
+		bounces += 1;
 		if (isVerticalCollision)
 		{
 			direction = -direction;
@@ -271,6 +271,8 @@ public:
 	float sizeMultiplier;
 	sf::CircleShape playerCircle;
 	sf::FloatRect playerBounds;
+	sf::RectangleShape playerBoundsRect;
+	float reloadTime;
 
 	Player(sf::Vector2f position, float orient = 0, float sizeMult = 1,
 		sf::Color color1 = sf::Color::Cyan, sf::Color color2 = sf::Color::Blue)
@@ -278,7 +280,9 @@ public:
 	{
 		timeSinceShot = sf::Clock();
 		sizeMultiplier = sizeMult;
-		playerCircle.setRadius(16 * sizeMultiplier);
+		playerCircle.setRadius(25 * sizeMultiplier);
+		playerCircle.setOrigin(sf::Vector2f(25 * sizeMultiplier, 25 * sizeMultiplier));
+		reloadTime = 0.5;
 	}
 
 	void turretControl(sf::RenderWindow& window)
@@ -288,10 +292,16 @@ public:
 		gunRect.setRotation(orient);
 	}
 
-	void draw(sf::RenderWindow& window) override
+	void drawPlayer(sf::RenderWindow& window, bool devMode)
 	{
+		playerCircle.setPosition(bodyRect.getPosition());
+		playerBoundsRect = sf::RectangleShape(sf::Vector2f(playerBounds.width, playerBounds.height));
+		playerBoundsRect.setPosition(playerBounds.left, playerBounds.top);
 		turretControl(window);
-
+		if (devMode)
+		{
+			window.draw(playerBoundsRect);
+		}
 		Tanks::draw(window);
 	}
 
@@ -310,7 +320,7 @@ public:
 		return false;
 	}
 
-	void manageMovement(sf::Time deltaTime, std::vector<sf::FloatRect>& wallBounds)
+	void manageMovement(sf::Time deltaTime, std::vector<sf::FloatRect>& wallBounds, bool reloadCheat)
 	{
 		originalPosition = bodyRect.getPosition();
 		
@@ -365,8 +375,16 @@ public:
 		}
 		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) 
-			&& timeSinceShot.getElapsedTime().asSeconds() > 0.5)
+			&& timeSinceShot.getElapsedTime().asSeconds() > reloadTime)
 		{
+			if (reloadCheat)
+			{
+				reloadTime = 0;
+			}
+			else
+			{
+				reloadTime = 0.5;
+			}
 			shoot(sizeMultiplier);
 			timeSinceShot.restart();
 		}

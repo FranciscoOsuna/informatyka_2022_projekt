@@ -31,7 +31,6 @@ bool raycast(sf::Vector2f start, sf::Vector2f end, sf::FloatRect obstacle, sf::R
 		}
 		if (devMode)
 		{
-			window.draw(endRect);
 			window.draw(ray);
 		}
 	}

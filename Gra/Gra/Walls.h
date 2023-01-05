@@ -9,6 +9,7 @@ class Wall
 public:
 
 	sf::FloatRect wallBounds;
+	sf::RectangleShape wallBoundsRect;
 
 	Wall(sf::Vector2f size, sf::Vector2f position, float isVertical = 0)
 	{
@@ -39,14 +40,19 @@ public:
 		wallOutline.setFillColor(sf::Color::Black);
 
 		wallBounds = wallOutline.getGlobalBounds();
-		wallBounds.height += 33; 
-		wallBounds.width += 33;
+		wallBoundsRect =  sf::RectangleShape(sf::Vector2f(wallBounds.width, wallBounds.height));
+		wallBoundsRect.setPosition(wallBounds.left, wallBounds.top);
 	}
 
-	void draw(sf::RenderWindow& window)
+	void draw(sf::RenderWindow& window, bool devMode)
 	{
 		window.draw(wallOutline);
 		window.draw(wall);
+
+		if (devMode)
+		{
+			window.draw(wallBoundsRect);
+		}
 	}
 
 private:
