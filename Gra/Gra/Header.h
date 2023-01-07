@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
+#include "Menu.h"
 
 
 
@@ -51,14 +52,6 @@ private:
 	sf::Clock titleTimer;
 };
 
-// Very important vector arithmetic
-
-float rotationFromVectorDifference(sf::Vector2f v1, sf::Vector2f v2)
-{
-	float angle = (atan2((v2.y - v1.y), (v2.x - v1.x)) * 180 / 3.14159) - 90;
-	return angle;
-}
-
 
 class SetUpWindow //performs Start Up functions on window
 {
@@ -96,15 +89,27 @@ public:
 		backGround.setSize(sf::Vector2f(1600, 800));
 		backGroundTexture.loadFromFile("Assets\\backGround.png");
 		backGround.setTexture(&backGroundTexture);
+
+		backGroundDark.setSize(sf::Vector2f(1600, 800));
+		backGroundTextureDark.loadFromFile("Assets\\backGroundDark.png");
+		backGroundDark.setTexture(&backGroundTextureDark);
 	}
 	void draw(sf::RenderWindow& window)
 	{
 		window.draw(backGround);
 	}
 
+	void drawDark(sf::RenderWindow& window)
+	{
+		window.draw(backGroundDark);
+	}
+
 private:
 	sf::RectangleShape backGround;
 	sf::Texture backGroundTexture;
+
+	sf::RectangleShape backGroundDark;
+	sf::Texture backGroundTextureDark;
 };
 
 
@@ -148,4 +153,25 @@ public:
 private:
 	sf::Texture pauseTexture;
 	sf::Sprite pauseBox;
+};
+
+
+class Leave
+{
+public:
+	Leave()
+	{
+		leaveTexture.loadFromFile("Assets\\leaveMessage.png");
+		leaveBox.setOrigin(sf::Vector2f(leaveTexture.getSize()) / 2.0f);
+		leaveBox.setPosition(800, 400);
+		leaveBox.setTexture(leaveTexture);
+	}
+
+	void draw(sf::RenderWindow& window)
+	{
+		window.draw(leaveBox);
+	}
+private:
+	sf::Texture leaveTexture;
+	sf::Sprite leaveBox;
 };

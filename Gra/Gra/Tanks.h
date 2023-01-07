@@ -258,6 +258,12 @@ public:
 		gunRect.setRotation(orient);
 	}
 
+	float rotationFromVectorDifference(sf::Vector2f v1, sf::Vector2f v2)
+	{
+		float angle = (atan2((v2.y - v1.y), (v2.x - v1.x)) * 180 / 3.14159) - 90;
+		return angle;
+	}
+
 	void drawAndShoot(sf::RenderWindow& window, bool canShoot)
 	{
 		Tanks::draw(window);
@@ -297,6 +303,12 @@ public:
 		sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
 		float orient = rotationFromVectorDifference(gunCircle.getPosition(), mousePos);
 		gunRect.setRotation(orient);
+	}
+
+	float rotationFromVectorDifference(sf::Vector2f v1, sf::Vector2f v2)
+	{
+		float angle = (atan2((v2.y - v1.y), (v2.x - v1.x)) * 180 / 3.14159) - 90;
+		return angle;
 	}
 
 	void drawPlayer(sf::RenderWindow& window, bool devMode)

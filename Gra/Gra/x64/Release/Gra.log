@@ -1,5 +1,4 @@
 ﻿  Source.cpp
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Header.h(58,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(45,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(147,8): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(175,51): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
@@ -20,10 +19,12 @@ C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Ta
               T=float
           ]
 C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(251,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(336,1): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(341,1): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(376,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(381,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(263,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(310,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(348,1): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(353,1): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(388,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Tanks.h(393,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Walls.h(31,53): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
@@ -133,8 +134,8 @@ C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Me
               T=float
           ]
   Generating code
-  1 of 788 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  1 of 794 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    5 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Gra.vcxproj -> C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\x64\Release\Gra.exe

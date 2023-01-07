@@ -22,6 +22,7 @@ int main()
 
 	// Set booleans to initial values
 	bool isPaused = false;
+	bool isLeaving = false;
 	bool isFocused = true;
 	bool devMode = false;
 	bool zeroReload = false;
@@ -50,6 +51,7 @@ int main()
 
 	// Class initiations
 	Pause pause;
+	Leave leave;
 	Background background;
 	Cursor cursor;
 
@@ -57,10 +59,14 @@ int main()
 	ColorSquareGrid colorSquareGrid1(sf::Vector2f(400, 50));
 	ColorSquareGrid colorSquareGrid2(sf::Vector2f(400, 400));
 
-	// Create Start game button
+	// Create main menu buttons
 	Button startGameButton(sf::Vector2f(1200, 200), sf::Vector2f(500, 150), sf::String("Start Game"));
 	Button levelSelectButton(sf::Vector2f(1200, 400), sf::Vector2f(500, 150), sf::String("Level Select"));
 	Button manageSavesButton(sf::Vector2f(1200, 600), sf::Vector2f(500, 150), sf::String("Manage Saves"));
+
+	// Create leave menu buttons
+	Button yesButton(sf::Vector2f(730, 420), sf::Vector2f(110, 60), sf::String("YES"));
+	Button noButton(sf::Vector2f(870, 420), sf::Vector2f(110, 60), sf::String("NO"));
 
 	// Manages Icon, Framerate, Keypress event settings, hides cursor
 	SetUpWindow setUp(window);
@@ -93,6 +99,10 @@ int main()
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F1)
 				isPaused = !isPaused;
 
+			// Toggle leave message
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+				isLeaving = !isLeaving;
+
 			// Toggle isFocused depending on window focus
 			if (event.type == sf::Event::LostFocus)
 				isFocused = false;
@@ -106,15 +116,39 @@ int main()
 			// Toggle instant reload
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F3)
 				zeroReload = !zeroReload;
+		}
 
-			if (inMainMenu && sf::Event::MouseButtonPressed) // Check for button clicks
+		// Leaving loop
+		if (isLeaving)
+		{
+			bool wasInMenu = inMainMenu;
+
+			window.clear(sf::Color(133, 210, 208));
+
+			if (!wasInMenu)
 			{
-
+				background.drawDark(window);
 			}
+			
+			leave.draw(window);
+
+			if (yesButton.manage(window))
+			{
+				window.close();
+			}
+
+			if (noButton.manage(window))
+			{
+				isLeaving = false;
+			}
+
+			clock.restart();
+			cursor.draw(window);
+			window.display();
 		}
 
 		// Main menu loop
-		if(inMainMenu) 
+		if (inMainMenu && !isLeaving)
 		{
 
 			window.clear(sf::Color(133, 210, 208));
@@ -150,7 +184,7 @@ int main()
 				inMainMenu = false;
 				inManageSaves = false;
 			}
-			
+
 
 			clock.restart();
 			cursor.draw(window);
@@ -158,7 +192,7 @@ int main()
 		}
 
 		// Game loop
-		else if (!isPaused && isFocused) 
+		else if (!isPaused && isFocused && !isLeaving && !inMainMenu)
 		{
 
 			// Get the elapsed time since the last frame
@@ -178,7 +212,7 @@ int main()
 						player.giveBodyPosition(),
 						walls[j].wallBounds,
 						window,
-					    devMode))
+						devMode))
 					{
 						canShoot = 0;
 					}
@@ -195,9 +229,9 @@ int main()
 						enemies[i].projectiles.erase(enemies[i].projectiles.begin() + j);
 					}
 				}
- 
+
 				// i - enemy, j - wall, k - projectile
-				for (int k = 0; k < enemies[i].projectiles.size(); k++) 
+				for (int k = 0; k < enemies[i].projectiles.size(); k++)
 				{
 					for (int j = 0; j < walls.size(); j++)
 					{
@@ -216,7 +250,7 @@ int main()
 						}
 					}
 				}
-				
+
 			}
 
 			for (int i = 0; i < walls.size(); i++)
@@ -261,10 +295,10 @@ int main()
 		}
 
 		// Pause loop
-		else 
+		else if(!isLeaving)
 		{
 			window.clear(sf::Color::Black);
-			background.draw(window);
+			background.drawDark(window);
 
 			pause.draw(window);
 			
