@@ -8,15 +8,6 @@
 #include "Walls.h"
 #include "LevelManager.h"
 
-class MainMenu 
-{
-public:
-
-private:
-	Tanks MenuTank;
-
-};
-
 class ColorSquare // Creates a 20x20 Rectangle of a given color
 {
 public:
@@ -210,4 +201,89 @@ private:
     sf::Vector2f buttonPosition;
     sf::Color buttonColor;
     sf::Color textColor;
+};
+
+
+class Timer 
+{
+public:
+
+    float time;
+
+    Timer()
+    {
+        time = 0;
+
+        timerBox.setPointCount(4);
+        timerBox.setPoint(0, sf::Vector2f(0, 0));
+        timerBox.setPoint(1, sf::Vector2f(200, 0));
+        timerBox.setPoint(2, sf::Vector2f(150, 40));
+        timerBox.setPoint(3, sf::Vector2f(0, 40));
+
+        timerBox.setFillColor(sf::Color(133, 210, 208));
+    }
+
+    sf::Text floatToText(float time)
+    {
+        // Get the elapsed time as a float value in seconds
+        float elapsedTime = time;
+
+        // Round the elapsed time to 3 decimal places
+        float roundedTime = roundf(elapsedTime * 1000) / 1000;
+
+        // Convert the rounded time to a string
+        std::string timeString = std::to_string(roundedTime).substr(0,5);
+
+        // Get font from file
+        font.loadFromFile("Assets\\font.otf");
+
+        // Create a text object with the elapsed time string
+        sf::Text text(timeString, font);
+
+        return text;
+    }
+
+    void pause()
+    {
+        if (!isPaused)
+        {
+            pausedTime = time;
+            isPaused = true;
+        }
+    }
+
+    void resume()
+    {
+        if (isPaused)
+        {
+            clock.restart();
+            time = pausedTime;
+            isPaused = false;
+        }
+    }
+
+
+    void manage(sf::RenderWindow& window)
+    {
+        if (!isPaused) 
+        {
+            time += clock.getElapsedTime().asSeconds();
+        }
+        clock.restart();
+        timerText = floatToText(time);
+        timerText.setPosition(sf::Vector2f(30, 0));
+        timerText.setOutlineThickness(1);
+        timerText.setOutlineColor(sf::Color::Black);
+        window.draw(timerBox);
+        window.draw(timerText);
+    }
+
+
+private:
+    bool isPaused;
+    float pausedTime;
+    sf::Clock clock;
+    sf::ConvexShape timerBox;
+    sf::Text timerText;
+    sf::Font font;
 };

@@ -1,0 +1,18 @@
+#Wall takes arguments as follows: [1]width [2]height [3]xPosition [4]yPosition [5]isVertical(0/1)
+# Enemy takes arguments as follows: [1]xPosition [2]yPosition [3]orientation(degrees) [4]sizeMultiplier [5][6][7]color1(R G B) [8][9][10]color2(R G B)
+
+# Outline walls
+Wall 800 10 8 0 1
+Wall 800 10 1600 0 1
+Wall 1600 10 0 0 0
+Wall 1600 10 0 792 0
+
+Wall 250 10 800 300 1
+
+Enemy 1000 350 90 1.2 0 0 255 0 0 126
+Enemy 1000 450 90 1.2 0 0 255 0 0 126
+Enemy 1000 550 90 1.2  0 0 255 0 0 126
+Enemy 1200 300 45 1 0 0 126 0 0 255
+Enemy 1200 400 90 1 0 0 126 0 0 255
+Enemy 1200 500 90 1 0 0 126 0 0 255
+Enemy 1200 600 -45 1 0 0 126 0 0 255

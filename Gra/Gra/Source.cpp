@@ -30,6 +30,9 @@ int main()
 	bool inLevelSelect = false;
 	bool inManageSaves = false;
 
+	// Set the default level to one
+	int level = 1;
+
 	// Create player color variables for character creation
 	sf::Color playerColor1 = sf::Color::Cyan;
 	sf::Color playerColor2 = sf::Color::Blue;
@@ -54,6 +57,7 @@ int main()
 	Leave leave;
 	Background background;
 	Cursor cursor;
+	Timer timer;
 
 	// Create color grids for character customisation
 	ColorSquareGrid colorSquareGrid1(sf::Vector2f(400, 50));
@@ -75,11 +79,31 @@ int main()
 	sf::Clock clock;
 	sf::Time elapsedTime;
 
+
 	// Create the player tank
 	Player player(sf::Vector2f(200, 400));
 
 	// Create enemies and walls from file
-	readLevelFile("Levels\\Level1.txt");
+	if (level == 1) 
+	{
+		readLevelFile("Levels\\Level1.txt");
+	}
+	else if (level == 2) 
+	{
+		readLevelFile("Levels\\Level2.txt");
+	}
+	else if (level == 3) 
+	{
+		readLevelFile("Levels\\Level3.txt");
+	}
+	else if (level == 4) 
+	{
+		readLevelFile("Levels\\Level4.txt");
+	}
+	else
+	{
+		readLevelFile("Levels\\Level5.txt");
+	}
 
 	// Create a vector of wall bounds
 	std::vector<sf::FloatRect> wallBounds = getWallBounds(walls);
@@ -121,6 +145,7 @@ int main()
 		// Leaving loop
 		if (isLeaving)
 		{
+			timer.pause();
 			bool wasInMenu = inMainMenu;
 
 			window.clear(sf::Color(133, 210, 208));
@@ -150,7 +175,8 @@ int main()
 		// Main menu loop
 		if (inMainMenu && !isLeaving)
 		{
-
+			timer.time = 0;
+			timer.pause();
 			window.clear(sf::Color(133, 210, 208));
 
 			newColor1 = colorSquareGrid1.manage(window, playerColor1);
@@ -187,6 +213,7 @@ int main()
 
 
 			clock.restart();
+
 			cursor.draw(window);
 			window.display();
 		}
@@ -194,7 +221,7 @@ int main()
 		// Game loop
 		else if (!isPaused && isFocused && !isLeaving && !inMainMenu)
 		{
-
+			timer.resume();
 			// Get the elapsed time since the last frame
 			elapsedTime = clock.restart();
 
@@ -288,6 +315,7 @@ int main()
 				}
 			}
 
+			timer.manage(window);
 			cursor.draw(window);
 
 			window.display();
@@ -297,6 +325,7 @@ int main()
 		// Pause loop
 		else if(!isLeaving)
 		{
+			timer.pause();
 			window.clear(sf::Color::Black);
 			background.drawDark(window);
 

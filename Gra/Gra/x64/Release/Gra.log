@@ -75,36 +75,27 @@ C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Le
           ]
 C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\LevelManager.h(57,61): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
 C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\LevelManager.h(57,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(36,53): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(27,53): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(36,43): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(27,43): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(42,44): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(33,44): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(42,38): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(33,38): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(91,81): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(91,64): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(82,81): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -113,9 +104,7 @@ C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Me
           [
               T=float
           ]
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(167,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(167,52): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(177,65): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(82,64): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -124,7 +113,18 @@ C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Me
           [
               T=float
           ]
-C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(177,48): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(158,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(158,52): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(168,65): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Menu.h(168,48): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -134,7 +134,7 @@ C:\Users\Francisco\OneDrive\Documents\GitHub\informatyka_2022_projekt\Gra\Gra\Me
               T=float
           ]
   Generating code
-  1 of 794 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  0 of 833 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
