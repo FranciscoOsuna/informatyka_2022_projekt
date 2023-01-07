@@ -58,6 +58,7 @@ class ColorSquareGrid // Creates a 4x4 Grid of ColorSquares
 public:
     std::vector<ColorSquare> squares;
     sf::Vector2f startingPosition;
+    sf::RectangleShape backgroundSquare;
 
     ColorSquareGrid(sf::Vector2f position)
     {
@@ -134,4 +135,79 @@ private:
         sf::Color(128, 0, 0),    // Maroon
         sf::Color(0, 0, 128)     // Navy
     };
+};
+
+class Button
+{
+public:
+    sf::FloatRect buttonBounds;
+
+    Button(sf::Vector2f position, sf::Vector2f size, sf::String content)
+    {
+        buttonColor = sf::Color(244, 185, 184);
+        textColor = sf::Color(136, 123, 176);
+
+        buttonSize = size;
+        buttonPosition = position;
+
+        buttonRect.setSize(size);
+        buttonRect.setOrigin(size / 2.f);
+        buttonRect.setPosition(position);
+        buttonRect.setFillColor(buttonColor);
+        
+        buttonBounds = buttonRect.getGlobalBounds();
+
+        font.loadFromFile("Assets\\font.otf");
+
+        buttonText = sf::Text(content, font, 50);
+        buttonText.setFillColor(sf::Color(textColor));
+
+        buttonTextBounds = buttonText.getGlobalBounds();
+
+        buttonText.setOrigin(buttonTextBounds.width/2.0, buttonTextBounds.height/2.0);
+        buttonText.setPosition(sf::Vector2f(buttonRect.getPosition().x, buttonRect.getPosition().y - 10.f));
+    }
+
+    bool manage(sf::RenderWindow& window)
+    {
+        bool clicked = false;
+        window.draw(buttonRect);
+        window.draw(buttonText);
+        sf::Vector2i mousePosition = sf::Vector2i(sf::Mouse::getPosition(window));
+        if (buttonBounds.contains(mousePosition.x, mousePosition.y))
+        {
+            enlarge();
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                clicked = true;
+            }
+        }
+        else
+        {
+            normalise();
+        }
+        return clicked;
+    }
+
+    void enlarge()
+    {
+        buttonRect.setPosition(buttonPosition - sf::Vector2f(2, 2));
+        buttonRect.setSize(sf::Vector2f(buttonSize.x + 8, buttonSize.y + 8));
+    }
+
+    void normalise()
+    {
+        buttonRect.setPosition(buttonPosition + sf::Vector2f(3, 3));
+        buttonRect.setSize(buttonSize);
+    }
+
+private:
+    sf::RectangleShape buttonRect;
+    sf::Text buttonText;
+    sf::Font font;
+    sf::FloatRect buttonTextBounds;
+    sf::Vector2f buttonSize;
+    sf::Vector2f buttonPosition;
+    sf::Color buttonColor;
+    sf::Color textColor;
 };

@@ -26,6 +26,8 @@ int main()
 	bool devMode = false;
 	bool zeroReload = false;
 	bool inMainMenu = true;
+	bool inLevelSelect = false;
+	bool inManageSaves = false;
 
 	// Create player color variables for character creation
 	sf::Color playerColor1 = sf::Color::Cyan;
@@ -54,6 +56,11 @@ int main()
 	// Create color grids for character customisation
 	ColorSquareGrid colorSquareGrid1(sf::Vector2f(400, 50));
 	ColorSquareGrid colorSquareGrid2(sf::Vector2f(400, 400));
+
+	// Create Start game button
+	Button startGameButton(sf::Vector2f(1200, 200), sf::Vector2f(500, 150), sf::String("Start Game"));
+	Button levelSelectButton(sf::Vector2f(1200, 400), sf::Vector2f(500, 150), sf::String("Level Select"));
+	Button manageSavesButton(sf::Vector2f(1200, 600), sf::Vector2f(500, 150), sf::String("Manage Saves"));
 
 	// Manages Icon, Framerate, Keypress event settings, hides cursor
 	SetUpWindow setUp(window);
@@ -96,10 +103,6 @@ int main()
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F2)
 				devMode = !devMode;
 
-			// Turn off main menu quickly
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F4)
-				inMainMenu = false;
-
 			// Toggle instant reload
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F3)
 				zeroReload = !zeroReload;
@@ -114,7 +117,7 @@ int main()
 		if(inMainMenu) 
 		{
 
-			window.clear(sf::Color(128, 128, 128));
+			window.clear(sf::Color(133, 210, 208));
 
 			newColor1 = colorSquareGrid1.manage(window, playerColor1);
 			if (newColor1 != playerColor1)
@@ -133,6 +136,21 @@ int main()
 
 
 			sampleTank.draw(window);
+
+			inMainMenu = !startGameButton.manage(window);
+
+			if (levelSelectButton.manage(window))
+			{
+				inMainMenu = false;
+				inLevelSelect = true;
+			}
+
+			if (manageSavesButton.manage(window))
+			{
+				inMainMenu = false;
+				inManageSaves = false;
+			}
+			
 
 			clock.restart();
 			cursor.draw(window);
