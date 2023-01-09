@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
+#include "Menu.h"
 
 
 
@@ -52,10 +53,10 @@ private:
 };
 
 
-class SetUp //performs Start Up functions
+class SetUpWindow //performs Start Up functions on window
 {
 public:
-	SetUp(sf::RenderWindow& window)
+	SetUpWindow(sf::RenderWindow& window)
 	{
 		// Load the icon from a file
 		icon.loadFromFile("Assets\\Icon.png");
@@ -88,17 +89,28 @@ public:
 		backGround.setSize(sf::Vector2f(1600, 800));
 		backGroundTexture.loadFromFile("Assets\\backGround.png");
 		backGround.setTexture(&backGroundTexture);
+
+		backGroundDark.setSize(sf::Vector2f(1600, 800));
+		backGroundTextureDark.loadFromFile("Assets\\backGroundDark.png");
+		backGroundDark.setTexture(&backGroundTextureDark);
 	}
 	void draw(sf::RenderWindow& window)
 	{
 		window.draw(backGround);
 	}
 
+	void drawDark(sf::RenderWindow& window)
+	{
+		window.draw(backGroundDark);
+	}
+
 private:
 	sf::RectangleShape backGround;
 	sf::Texture backGroundTexture;
-};
 
+	sf::RectangleShape backGroundDark;
+	sf::Texture backGroundTextureDark;
+};
 
 
 class Cursor
@@ -141,4 +153,25 @@ public:
 private:
 	sf::Texture pauseTexture;
 	sf::Sprite pauseBox;
+};
+
+
+class Leave
+{
+public:
+	Leave()
+	{
+		leaveTexture.loadFromFile("Assets\\leaveMessage.png");
+		leaveBox.setOrigin(sf::Vector2f(leaveTexture.getSize()) / 2.0f);
+		leaveBox.setPosition(800, 400);
+		leaveBox.setTexture(leaveTexture);
+	}
+
+	void draw(sf::RenderWindow& window)
+	{
+		window.draw(leaveBox);
+	}
+private:
+	sf::Texture leaveTexture;
+	sf::Sprite leaveBox;
 };

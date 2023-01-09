@@ -12,3 +12,6 @@ czym strzelając w wrogie czołgi.
 
 Background courtesey of Deepnight Games RPG map editor 2
 https://deepnight.net/tools/rpg-map/
+
+Font courtesey of KineticPlasma Fonts
+https://www.fontspace.com/kineticplasma-fonts
