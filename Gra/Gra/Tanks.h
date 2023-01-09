@@ -239,6 +239,7 @@ public:
 class Enemy : public Tanks
 {
 public:
+	bool hit = false;
 	sf::Clock timeSinceShot;
 	float reloadTime;
 	sf::Vector2f enemyPosition;
@@ -275,6 +276,15 @@ public:
 	}
 };
 
+bool isHit(Enemy& enemy)
+{
+	if (enemy.hit)
+	{
+		return true;
+	}
+	return false;
+}
+
 
 class Player : public Tanks
 {
@@ -296,6 +306,15 @@ public:
 		playerCircle.setRadius(25 * sizeMultiplier);
 		playerCircle.setOrigin(sf::Vector2f(25 * sizeMultiplier, 25 * sizeMultiplier));
 		reloadTime = 0.5;
+	}
+
+	void reset()
+	{
+		projectiles.clear();
+		gunCircle.setPosition(200, 400);
+		gunRect.setPosition(200, 400);
+		bodyRect.setPosition(200, 400);
+		bodyRect.setRotation(0);
 	}
 
 	void turretControl(sf::RenderWindow& window)
