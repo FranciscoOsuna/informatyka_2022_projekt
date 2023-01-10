@@ -29,6 +29,9 @@ int main()
 	bool inMainMenu = true;
 	bool inLevelSelect = false;
 	bool inManageSaves = false;
+	bool playerHit = false;
+	bool levelFinished = false;
+	bool leaveAccepted = false;
 
 	// Set the default level to one
 	int level = 1;
@@ -67,6 +70,14 @@ int main()
 	Button startGameButton(sf::Vector2f(1200, 200), sf::Vector2f(500, 150), sf::String("Start Game"));
 	Button levelSelectButton(sf::Vector2f(1200, 400), sf::Vector2f(500, 150), sf::String("Level Select"));
 	Button manageSavesButton(sf::Vector2f(1200, 600), sf::Vector2f(500, 150), sf::String("Manage Saves"));
+
+	// Create level select buttons
+	Button backButton(sf::Vector2f(800, 700), sf::Vector2f(500, 150), sf::String("Back"));
+	Button level1(sf::Vector2f(200, 400), sf::Vector2f(100, 100), sf::String("1"));
+	Button level2(sf::Vector2f(500, 400), sf::Vector2f(100, 100), sf::String("2"));
+	Button level3(sf::Vector2f(800, 400), sf::Vector2f(100, 100), sf::String("3"));
+	Button level4(sf::Vector2f(1100, 400), sf::Vector2f(100, 100), sf::String("4"));
+	Button level5(sf::Vector2f(1400, 400), sf::Vector2f(100, 100), sf::String("5"));
 
 	// Create leave menu buttons
 	Button yesButton(sf::Vector2f(730, 420), sf::Vector2f(110, 60), sf::String("YES"));
@@ -117,7 +128,11 @@ int main()
 		{
 			// Close window if closed manually
 			if (event.type == sf::Event::Closed)
+			{
 				window.close();
+				break;
+			}
+				
 
 			// Toggle pause
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F1)
@@ -140,6 +155,51 @@ int main()
 			// Toggle instant reload
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F3)
 				zeroReload = !zeroReload;
+
+			// Reset
+			if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F4) || playerHit)
+			{
+				playerHit = false;
+				timer.time = 0;
+				player.projectiles.clear();
+				player.reset();
+				walls.clear();
+				wallBounds.clear();
+				for (int i = 0; i < enemies.size(); i++)
+				{
+					enemies[i].projectiles.clear();
+				}
+				enemies.clear();
+
+				if (level == 1)
+				{
+					readLevelFile("Levels\\Level1.txt");
+				}
+				else if (level == 2)
+				{
+					readLevelFile("Levels\\Level2.txt");
+				}
+				else if (level == 3)
+				{
+					readLevelFile("Levels\\Level3.txt");
+				}
+				else if (level == 4)
+				{
+					readLevelFile("Levels\\Level4.txt");
+				}
+				else
+				{
+					readLevelFile("Levels\\Level5.txt");
+				}
+				wallBounds = getWallBounds(walls);
+
+			}
+		}
+
+		if (leaveAccepted)
+		{
+			window.close();
+			break;
 		}
 
 		// Leaving loop
@@ -159,7 +219,7 @@ int main()
 
 			if (yesButton.manage(window))
 			{
-				window.close();
+				leaveAccepted = true;
 			}
 
 			if (noButton.manage(window))
@@ -173,7 +233,7 @@ int main()
 		}
 
 		// Main menu loop
-		if (inMainMenu && !isLeaving)
+		if (inMainMenu && !isLeaving &&!inLevelSelect)
 		{
 			timer.time = 0;
 			timer.pause();
@@ -197,7 +257,11 @@ int main()
 
 			sampleTank.draw(window);
 
-			inMainMenu = !startGameButton.manage(window);
+			if (startGameButton.manage(window))
+			{
+				playerHit = true;
+				inMainMenu = false;
+			}
 
 			if (levelSelectButton.manage(window))
 			{
@@ -218,9 +282,90 @@ int main()
 			window.display();
 		}
 
+		// Level select loop
+		else if (inLevelSelect)
+		{
+			timer.time = 0;
+			timer.pause();
+			window.clear(sf::Color(133, 210, 208));
+
+			if (level == 1)
+			{
+				level1.buttonColor = sf::Color(160, 32, 240);
+				level2.buttonColor = level2.defaultColor;
+				level3.buttonColor = level3.defaultColor;
+				level4.buttonColor = level4.defaultColor;
+				level5.buttonColor = level5.defaultColor;
+			}
+			else if (level == 2)
+			{
+				level1.buttonColor = level2.defaultColor;
+				level2.buttonColor = sf::Color(160, 32, 240);
+				level3.buttonColor = level3.defaultColor;
+				level4.buttonColor = level4.defaultColor;
+				level5.buttonColor = level5.defaultColor;
+			}
+			else if (level == 3)
+			{
+				level1.buttonColor = level2.defaultColor;
+				level2.buttonColor = level2.defaultColor;
+				level3.buttonColor = sf::Color(160, 32, 240);
+				level4.buttonColor = level4.defaultColor;
+				level5.buttonColor = level5.defaultColor;
+			}
+			else if (level == 4)
+			{
+				level1.buttonColor = level2.defaultColor;
+				level2.buttonColor = level2.defaultColor;
+				level3.buttonColor = level3.defaultColor;
+				level4.buttonColor = sf::Color(160, 32, 240);
+				level5.buttonColor = level5.defaultColor;
+			}
+			else
+			{
+				level1.buttonColor = level2.defaultColor;
+				level2.buttonColor = level2.defaultColor;
+				level3.buttonColor = level3.defaultColor;
+				level4.buttonColor = level4.defaultColor;
+				level5.buttonColor = sf::Color(160, 32, 240);
+			}
+
+			if(backButton.manage(window))
+			{
+				inLevelSelect = false;
+				inMainMenu = true;
+			}
+			if (level1.manage(window))
+			{
+				level = 1;
+			}
+			if (level2.manage(window))
+			{
+				level = 2;
+			}
+			if (level3.manage(window))
+			{
+				level = 3;
+			}
+			if (level4.manage(window))
+			{
+				level = 4;
+			}
+			if (level5.manage(window))
+			{
+				level = 5;
+			}
+
+			clock.restart();
+
+			cursor.draw(window);
+			window.display();
+		}
+
 		// Game loop
 		else if (!isPaused && isFocused && !isLeaving && !inMainMenu)
 		{
+
 			timer.resume();
 			// Get the elapsed time since the last frame
 			elapsedTime = clock.restart();
@@ -229,10 +374,13 @@ int main()
 
 			background.draw(window);
 
-			for (int i = 0; i < enemies.size(); i++)
+			// For each enemy
+			for (int i = 0; i < enemies.size(); i++) 
 			{
 				bool canShoot = 1;
-				for (int j = 0; j < walls.size(); j++)
+
+				// For each wall for each enemy
+				for (int j = 0; j < walls.size(); j++) 
 				{
 					if (raycast(
 						enemies[i].enemyPosition,
@@ -246,8 +394,15 @@ int main()
 				}
 				enemies[i].fixTurretOn(player);
 				enemies[i].drawAndShoot(window, canShoot);
-				for (int j = 0; j < enemies[i].projectiles.size(); j++)
+
+				// For each projectile for each enemy
+				for (int j = 0; j < enemies[i].projectiles.size(); j++) 
 				{
+
+					if (enemies[i].projectiles[j].projectileBounds.intersects(player.playerBounds))
+					{
+						playerHit = true;
+					}
 
 					enemies[i].projectiles[j].update();
 					enemies[i].projectiles[j].draw(window);
@@ -256,6 +411,7 @@ int main()
 						enemies[i].projectiles.erase(enemies[i].projectiles.begin() + j);
 					}
 				}
+				
 
 				// i - enemy, j - wall, k - projectile
 				for (int k = 0; k < enemies[i].projectiles.size(); k++)
@@ -277,7 +433,10 @@ int main()
 						}
 					}
 				}
-
+				if (enemies[i].hit)
+				{
+					enemies.erase(enemies.begin() + i);
+				}
 			}
 
 			for (int i = 0; i < walls.size(); i++)
@@ -290,6 +449,20 @@ int main()
 			player.drawPlayer(window, devMode);
 			for (int i = 0; i < player.projectiles.size(); i++)
 			{
+				if (player.projectiles[i].projectileBounds.intersects(player.playerBounds)
+					&& player.projectiles[i].bounces > 0)
+				{
+					playerHit = true;
+				}
+					
+				for (int j = 0; j < enemies.size(); j++) 
+				{
+					if (player.projectiles[i].projectileBounds.intersects(enemies[j].bodyRect.getGlobalBounds()))
+					{
+						enemies[j].hit = true;
+					}
+				}
+
 				player.projectiles[i].update();
 				player.projectiles[i].draw(window);
 				if (!player.projectiles[i].active)

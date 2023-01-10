@@ -132,10 +132,13 @@ class Button
 {
 public:
     sf::FloatRect buttonBounds;
+    sf::Color buttonColor;
+    sf::Color defaultColor;
 
     Button(sf::Vector2f position, sf::Vector2f size, sf::String content)
     {
         buttonColor = sf::Color(244, 185, 184);
+        defaultColor = sf::Color(244, 185, 184);
         textColor = sf::Color(136, 123, 176);
 
         buttonSize = size;
@@ -162,6 +165,7 @@ public:
     bool manage(sf::RenderWindow& window)
     {
         bool clicked = false;
+        buttonRect.setFillColor(buttonColor);
         window.draw(buttonRect);
         window.draw(buttonText);
         sf::Vector2i mousePosition = sf::Vector2i(sf::Mouse::getPosition(window));
@@ -199,7 +203,6 @@ private:
     sf::FloatRect buttonTextBounds;
     sf::Vector2f buttonSize;
     sf::Vector2f buttonPosition;
-    sf::Color buttonColor;
     sf::Color textColor;
 };
 
