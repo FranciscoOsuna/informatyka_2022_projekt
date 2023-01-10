@@ -128,7 +128,11 @@ int main()
 		{
 			// Close window if closed manually
 			if (event.type == sf::Event::Closed)
+			{
 				window.close();
+				break;
+			}
+				
 
 			// Toggle pause
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F1)
@@ -190,6 +194,12 @@ int main()
 				wallBounds = getWallBounds(walls);
 
 			}
+		}
+
+		if (leaveAccepted)
+		{
+			window.close();
+			break;
 		}
 
 		// Leaving loop
@@ -364,10 +374,13 @@ int main()
 
 			background.draw(window);
 
-			for (int i = 0; i < enemies.size(); i++)
+			// For each enemy
+			for (int i = 0; i < enemies.size(); i++) 
 			{
 				bool canShoot = 1;
-				for (int j = 0; j < walls.size(); j++)
+
+				// For each wall for each enemy
+				for (int j = 0; j < walls.size(); j++) 
 				{
 					if (raycast(
 						enemies[i].enemyPosition,
@@ -381,7 +394,9 @@ int main()
 				}
 				enemies[i].fixTurretOn(player);
 				enemies[i].drawAndShoot(window, canShoot);
-				for (int j = 0; j < enemies[i].projectiles.size(); j++)
+
+				// For each projectile for each enemy
+				for (int j = 0; j < enemies[i].projectiles.size(); j++) 
 				{
 
 					if (enemies[i].projectiles[j].projectileBounds.intersects(player.playerBounds))
