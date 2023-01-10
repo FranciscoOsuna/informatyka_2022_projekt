@@ -206,12 +206,12 @@ private:
     sf::Color textColor;
 };
 
-
 class Timer 
 {
 public:
 
     float time;
+    std::string timeString;
 
     Timer()
     {
@@ -235,7 +235,7 @@ public:
         float roundedTime = roundf(elapsedTime * 1000) / 1000;
 
         // Convert the rounded time to a string
-        std::string timeString = std::to_string(roundedTime).substr(0,5);
+        timeString = std::to_string(roundedTime).substr(0,5);
 
         // Get font from file
         font.loadFromFile("Assets\\font.otf");
@@ -263,6 +263,13 @@ public:
             time = pausedTime;
             isPaused = false;
         }
+    }
+
+    void restart()
+    {
+        pausedTime = 0;
+        clock.restart();
+        time = 0;
     }
 
 

@@ -61,6 +61,7 @@ int main()
 	Background background;
 	Cursor cursor;
 	Timer timer;
+	Saves saves;
 
 	// Create color grids for character customisation
 	ColorSquareGrid colorSquareGrid1(sf::Vector2f(400, 50));
@@ -82,6 +83,21 @@ int main()
 	// Create leave menu buttons
 	Button yesButton(sf::Vector2f(730, 420), sf::Vector2f(110, 60), sf::String("YES"));
 	Button noButton(sf::Vector2f(870, 420), sf::Vector2f(110, 60), sf::String("NO"));
+
+	// Create return button
+	ReturnBox returnBox;
+	Button returnButton(sf::Vector2f(800, 420), sf::Vector2f(250, 60), sf::String("RETURN"));
+
+	// Create read and write buttons
+	Button read1(sf::Vector2f(400, 200), sf::Vector2f(300, 100), sf::String("Read 1"));
+	Button read2(sf::Vector2f(800, 200), sf::Vector2f(300, 100), sf::String("Read 2"));
+	Button read3(sf::Vector2f(1200, 200), sf::Vector2f(300, 100), sf::String("Read 2"));
+
+	Button write1(sf::Vector2f(400, 500), sf::Vector2f(300, 100), sf::String("Write 1"));
+	Button write2(sf::Vector2f(800, 500), sf::Vector2f(300, 100), sf::String("Write 2"));
+	Button write3(sf::Vector2f(1200, 500), sf::Vector2f(300, 100), sf::String("Write 2"));
+
+
 
 	// Manages Icon, Framerate, Keypress event settings, hides cursor
 	SetUpWindow setUp(window);
@@ -259,7 +275,39 @@ int main()
 
 			if (startGameButton.manage(window))
 			{
-				playerHit = true;
+				timer.restart();
+				playerHit = false;
+				player.projectiles.clear();
+				player.reset();
+				walls.clear();
+				wallBounds.clear();
+				for (int i = 0; i < enemies.size(); i++)
+				{
+					enemies[i].projectiles.clear();
+				}
+				enemies.clear();
+
+				if (level == 1)
+				{
+					readLevelFile("Levels\\Level1.txt");
+				}
+				else if (level == 2)
+				{
+					readLevelFile("Levels\\Level2.txt");
+				}
+				else if (level == 3)
+				{
+					readLevelFile("Levels\\Level3.txt");
+				}
+				else if (level == 4)
+				{
+					readLevelFile("Levels\\Level4.txt");
+				}
+				else
+				{
+					readLevelFile("Levels\\Level5.txt");
+				}
+				wallBounds = getWallBounds(walls);
 				inMainMenu = false;
 			}
 
@@ -272,7 +320,7 @@ int main()
 			if (manageSavesButton.manage(window))
 			{
 				inMainMenu = false;
-				inManageSaves = false;
+				inManageSaves = true;
 			}
 
 
@@ -330,7 +378,7 @@ int main()
 				level5.buttonColor = sf::Color(160, 32, 240);
 			}
 
-			if(backButton.manage(window))
+			if (backButton.manage(window))
 			{
 				inLevelSelect = false;
 				inMainMenu = true;
@@ -356,14 +404,79 @@ int main()
 				level = 5;
 			}
 
+			saves.draw(window);
 			clock.restart();
 
 			cursor.draw(window);
 			window.display();
 		}
 
+		// Manage saves loop
+		else if (inManageSaves)
+		{
+			timer.time = 0;
+			timer.pause();
+			window.clear(sf::Color(133, 210, 208));
+			if (backButton.manage(window))
+			{
+				inManageSaves = false;
+				inMainMenu = true;
+			}
+			if (read1.manage(window))
+			{
+				saves.readFromBinaryFile("Saves\\Save1");
+			}
+			if (read2.manage(window))
+			{
+				saves.readFromBinaryFile("Saves\\Save2");
+			}
+			if (read3.manage(window))
+			{
+				saves.readFromBinaryFile("Saves\\Save2");
+			}
+			if (write1.manage(window))
+			{
+				saves.saveToBinaryFile("Saves\\Save1");
+			}
+			if (write2.manage(window))
+			{
+				saves.saveToBinaryFile("Saves\\Save2");
+			}
+			if (write3.manage(window))
+			{
+				saves.saveToBinaryFile("Saves\\Save3");
+			}
+
+			clock.restart();
+
+			cursor.draw(window);
+			window.display();
+		}
+
+		// Level finished loop
+		else if (levelFinished)
+		{
+			timer.pause();
+			if (timer.time < saves.array[level-1])
+			{
+				saves.array[level-1] = timer.time;
+			}
+			window.clear(sf::Color(133, 210, 208));
+			background.drawDark(window);
+
+			returnBox.draw(window, timer.timeString);
+
+			if (returnButton.manage(window))
+			{
+				inMainMenu = true;
+				levelFinished = false;
+			}
+			cursor.draw(window);
+			window.display();
+		}
+
 		// Game loop
-		else if (!isPaused && isFocused && !isLeaving && !inMainMenu)
+		else if (!isPaused && isFocused && !isLeaving && !inMainMenu && !levelFinished)
 		{
 
 			timer.resume();
@@ -373,6 +486,11 @@ int main()
 			window.clear();
 
 			background.draw(window);
+
+			if (enemies.empty())
+			{
+				levelFinished = true;
+			}
 
 			// For each enemy
 			for (int i = 0; i < enemies.size(); i++) 

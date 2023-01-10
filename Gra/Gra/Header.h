@@ -4,7 +4,8 @@
 #include <iostream>
 #include <cmath>
 #include "Menu.h"
-
+#include <fstream>
+#include <string>
 
 
 class Titles //manages title animations
@@ -155,6 +156,33 @@ private:
 	sf::Sprite pauseBox;
 };
 
+class ReturnBox
+{
+public:
+	ReturnBox()
+	{
+		font.loadFromFile("Assets\\font.otf");
+
+		returnTexture.loadFromFile("Assets\\returnMessage.png");
+		returnBox.setOrigin(sf::Vector2f(returnTexture.getSize()) / 2.0f);
+		returnBox.setPosition(800, 400);
+		returnBox.setTexture(returnTexture);
+		timerResult.setPosition(sf::Vector2f(700, 600));
+	}
+
+	void draw(sf::RenderWindow& window,std::string content)
+	{
+		timerResult = sf::Text(content, font, 50);
+		timerResult.setPosition(sf::Vector2f(730, 315));
+		window.draw(returnBox);
+		window.draw(timerResult);
+	}
+private:
+	sf::Font font;
+	sf::Text timerResult;
+	sf::Texture returnTexture;
+	sf::Sprite returnBox;
+};
 
 class Leave
 {
@@ -175,3 +203,79 @@ private:
 	sf::Texture leaveTexture;
 	sf::Sprite leaveBox;
 };
+
+class Saves {
+public:
+	Saves() {
+		font.loadFromFile("Assets\\font.otf");
+
+		for (int i = 0; i < 5; i++) {
+			array[i] = 99.9f;
+		}
+	}
+
+	void setValue(int index, float value) {
+		array[index] = value;
+	}
+
+	void readFromBinaryFile(const std::string& filename) {
+		std::ifstream file(filename, std::ios::binary);
+		file.read((char*)array, sizeof(array));
+		file.close();
+	}
+
+	void saveToBinaryFile(const std::string& filename) {
+		std::ofstream file(filename, std::ios::binary);
+		file.write((char*)array, sizeof(array));
+		file.close();
+	}
+
+	float getRoundedFloat(int index, float array[]) {
+		// Round the float to 2 decimal places
+		return roundf(array[index] * 100) / 100;
+	}
+
+
+	std::string getValueAsString(int ind) {
+		std::ostringstream ss;
+		ss << getRoundedFloat(ind, array);
+		return ss.str();
+	}
+
+	void draw(sf::RenderWindow& window)
+	{
+		bool refreshed = false;
+		if (refreshed == false)
+		{
+			record1 = sf::Text(getValueAsString(0), font, 50);
+			record2 = sf::Text(getValueAsString(1), font, 50);
+			record3 = sf::Text(getValueAsString(2), font, 50);
+			record4 = sf::Text(getValueAsString(3), font, 50);
+			record5 = sf::Text(getValueAsString(4), font, 50);
+
+			record1.setPosition(sf::Vector2f(140, 250));
+			record2.setPosition(sf::Vector2f(440, 250));
+			record3.setPosition(sf::Vector2f(740, 250));
+			record4.setPosition(sf::Vector2f(1040, 250));
+			record5.setPosition(sf::Vector2f(1340, 250));
+
+			refreshed = true;
+		}
+		window.draw(record1);
+		window.draw(record2);
+		window.draw(record3);
+		window.draw(record4);
+		window.draw(record5);
+	}
+
+	float array[5];
+	sf::Font font;
+	sf::Text record1;
+	sf::Text record2;
+	sf::Text record3;
+	sf::Text record4;
+	sf::Text record5;
+};
+
+
+
